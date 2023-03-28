@@ -1,36 +1,3 @@
-<?php
-session_start();
-include 'connection.php';
-
-if(isset($_POST['submit']))
-{
-    $username  = $_POST['username'];
-    $password = $_POST['password'];
-}
-
-$sql="SELECT * FROM login WHERE username='admin@gmail.com' AND password='admin@123'";
-var_dump($sql);
-$result=mysqli_query($conn,$sql);
-$row=mysqli_fetch_assoc($result);
-$count=mysqli_num_rows($result);
-var_dump($count);
-if($count == 1)
-  {
-    $_SESSION['user_id']  = $row['login_id'];
-    $_SESSION['username']=$row['username'];
-      ?>
-      <script>
-        window.location.assign('dashboard.php');
-      </script>
-      <?php
-  }
-  else
-  {
-    echo "invalid username or password";
-  }
-
-   ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -84,7 +51,7 @@ if($count == 1)
       <nav id="navbar" class="navbar order-last order-lg-0">
         <ul>
           <li><a class="nav-link scrollto active" href="index.php">Home</a></li>
-          
+          <li><a class="nav-link scrollto active" href="logout.php">logout</a></li>
             <ul>
              
     
@@ -102,27 +69,8 @@ if($count == 1)
     <div class="container mt-1" data-aos="fade-up">
 
       <div class="row justify-content-center" data-aos="fade-up" data-aos-delay="150">   
-
-      <form action="" method="post">
-  <div class="imgcontainer">
-    <img src="https://img.freepik.com/free-vector/login-concept-illustration_114360-739.jpg?w=2000" alt="Avatar" class="avatar" style="height:200px; width:400px">
-  </div>
-
-  <div class="container bg-light" style="height:300px; width:400px">
-    <label for="uname" style="color:black"><b>Username</b></label>
-    <input type="text"  style="width:200px" placeholder="Enter Username" name="username" required><br><br>
-
-    <label for="psw" style="color:black"><b>Password</b></label>
-    <input type="password" style="width:200px" placeholder="Enter Password" name="password" required><br><br><br>
-
-    <button type="submit" class="btn btn-primary" name="submit">Login</button>
-    <br>
-    <a href="#" class="btn btn-secondary p-1 mt-1 my-5">owner</a>
-    <a href="#" class="btn btn-secondary p-1 mt-1 my-5">customer</a>
-
-  </div>
-</form>
-
+<h1>Welcome to admin dashboard</h1>
+     
     </div>
   </section><!-- End Hero -->
 
