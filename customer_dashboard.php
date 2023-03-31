@@ -1,4 +1,12 @@
-
+<?php
+session_start();
+if(!isset($_SESSION['id']))
+{
+  header('location:login.php');
+} 
+else
+{
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,7 +14,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Turf Booking Management</title>
+  <title>Turf Booking Management/customer</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -51,9 +59,10 @@
       <nav id="navbar" class="navbar order-last order-lg-0">
         <ul>
           <li><a class="nav-link scrollto active" href="index.php">Home</a></li>
+          <li><a class="nav-link scrollto active" href="#">view turf</a></li>
+          <li><a class="nav-link scrollto active" href="view_customer_profile.php">view profile</a></li>
           <li><a class="nav-link scrollto active" href="logout.php">logout</a></li>
-            <ul>
-             
+            <ul>           
     
         </ul>
         
@@ -69,7 +78,7 @@
     <div class="container mt-1" data-aos="fade-up">
 
       <div class="row justify-content-center" data-aos="fade-up" data-aos-delay="150">   
-<h1>Welcome to admin dashboard</h1>
+<h1>Welcome to dashboard</h1>
      
     </div>
   </section><!-- End Hero -->
@@ -147,3 +156,6 @@
 </body>
 
 </html>
+<?php 
+}
+?>

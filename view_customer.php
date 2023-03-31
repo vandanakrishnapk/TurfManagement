@@ -1,82 +1,8 @@
 <?php
-session_start();
-include 'connection.php';
+include "connection.php";
+$query = mysqli_query($conn,"SELECT * FROM customer_registration");
 
-if(isset($_POST['submit']))
-{
-    $username  = $_POST['username'];
-    $password = $_POST['password']; 
-    $type = $_POST['type'];
-
-
-$result = mysqli_query($conn,$sql="SELECT * FROM login  WHERE username='$username' AND password='$password'");
-if($result)
-{
-$row=mysqli_fetch_assoc($result);
-$count=mysqli_num_rows($result);
-
-if($count == 1 && $type == "admin")
-  {    
-    $_SESSION['id']  = $row['login_id'];
-    $_SESSION['username']=$row['username'];
-      ?>
-      <script>
-        window.location.assign('admin_dashboard.php');
-      </script>
-      <?php
-  }
-  elseif($count==1 && $type=="customer")
-  {
- $_SESSION['id'] = $row['login_id'];
- $id = $_SESSION['id'];
-    $query = mysqli_query($conn,"SELECT * FROM customer_registration WHERE customer_id='$id'");
-   
-    $q = mysqli_fetch_assoc($query);
-    
-    if($q['approval_status'] ==1)
-    {      
-      ?>
-<script>window.location.assign('customer_dashboard.php');</script>
-<?php
-    }
-  
-    else
-    {
-      echo"You need approval by admin";
-    }
-  }
-  elseif($count==1 && $type=="owner")
-  {
-    $_SESSION['id'] = $row['login_id'];
-    $id = $_SESSION['id'];
-    $query1 = mysqli_query($conn,"SELECT * FROM owner_registration WHERE owner_id = '$id'");
-    $r= mysqli_fetch_assoc($query1);
-    if($r['approval_status'] == 1)
-    {
 ?>
-<script>window.location.assign('owner_dashboard.php');</script>
-<?php
-    }
-    else
-    {
-      ?>
-
-      <script>alert('you need approval of admin');</script>
-      <?php
-    }
-    }
-  }
-}
-  else
-  {
-    echo "invalid username,password or type";
-  }
-  
-
-
-   ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -88,7 +14,7 @@ if($count == 1 && $type == "admin")
   <meta content="" name="description">
   <meta content="" name="keywords">
 
-  <!-- Favicons -->
+  <!-- Favicons
   <link href="https://media.istockphoto.com/id/520999573/photo/indoor-soccer-football-field.jpg?s=612x612&w=0&k=20&c=X2PinGm51YPcqCAFCqDh7GvJxoG2WnJ19aadfRYk2dI=" rel="icon">
   <link href="https://media.istockphoto.com/id/520999573/photo/indoor-soccer-football-field.jpg?s=612x612&w=0&k=20&c=X2PinGm51YPcqCAFCqDh7GvJxoG2WnJ19aadfRYk2dI=" rel="apple-touch-icon">
 
@@ -102,7 +28,7 @@ if($count == 1 && $type == "admin")
   <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
   <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
   <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet"> 
 
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
@@ -129,8 +55,8 @@ if($count == 1 && $type == "admin")
       <nav id="navbar" class="navbar order-last order-lg-0">
         <ul>
           <li><a class="nav-link scrollto active" href="index.php">Home</a></li>
-          
-            <ul>
+         
+       
              
     
         </ul>
@@ -147,32 +73,54 @@ if($count == 1 && $type == "admin")
     <div class="container mt-1" data-aos="fade-up">
 
       <div class="row justify-content-center" data-aos="fade-up" data-aos-delay="150">   
-
-      <form action="" method="post">
-  <div class="imgcontainer">
-    <img src="https://img.freepik.com/free-vector/login-concept-illustration_114360-739.jpg?w=2000" alt="Avatar" class="avatar" style="height:200px; width:400px">
-  </div>
-
-  <div class="container bg-light" style="height:300px; width:400px">
-  <select name="type" style="margin-bottom:5">
-      <option value="admin">admin</option>
-      <option value="owner">owner</option>
-      <option value="customer">customer</option>
-    </select><br>
-    <label for="uname" style="color:black"><b>Username</b></label>
-    <input type="text"  class="mt-2" style="width:200px" placeholder="Enter Username" name="username" required><br><br>
-
-    <label for="psw" style="color:black"><b>Password</b></label>
-    <input type="password" style="width:200px" class="mb-1" placeholder="Enter Password" name="password" required><br>
-   
-    <button type="submit" class="btn btn-primary mt-0" name="submit">Login</button>
-    <br>
-    <a href="owner_registration.php" class="btn btn-secondary p-1 mt-1 my-5">owner</a>
-    <a href="customer_register.php" class="btn btn-secondary p-1 mt-1 my-5">customer</a>
-
-  </div>
-</form>
-
+     
+       
+         
+           <table class = "table table-bordered" style="color:white">
+            <tr>
+                <th>Regno</th>
+                <th>Name</th>
+                <th>Mobile</th>
+                <th>Place</th>
+                <th>Email</th>
+                <th>Photo</th>
+                <th>Approval</th>
+            </tr>
+            <?php
+            while($rd = mysqli_fetch_array($query))
+            {
+            ?>
+                <tr>
+                <td><?php echo $rd['customer_id']; ?></td>
+                <td><?php echo $rd['name']; ?></td>
+                <td><?php echo $rd['mobile']; ?></td>
+                <td><?php echo$rd['place']; ?></td>
+                <td><?php echo $rd['email']; ?></td>
+                <td><img src="./image/<?php echo $rd['photo'];?>" alt="" width="30" height="30"></td>
+                <td><?php 
+                if($rd['approval_status'] == 0)
+                {  
+                  ?>   
+                   <a class="btn btn-primary p-1" href="approval_update.php?update_id=<?php echo $rd['customer_id'];?>">Approve</a>           
+                    
+                    <?php 
+                }
+                      else{
+                        ?>
+                     <a class="btn btn-danger p-1" href="#">Approved</a>
+                  <?php } ?> 
+                  </td>
+                
+              
+                ?></td>
+                </tr>
+            <?php } ?>
+           </table>
+         
+        
+            </div>
+        
+     
     </div>
   </section><!-- End Hero -->
 

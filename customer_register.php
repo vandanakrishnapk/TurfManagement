@@ -1,81 +1,56 @@
 <?php
-session_start();
 include 'connection.php';
-
 if(isset($_POST['submit']))
 {
-    $username  = $_POST['username'];
-    $password = $_POST['password']; 
-    $type = $_POST['type'];
-
-
-$result = mysqli_query($conn,$sql="SELECT * FROM login  WHERE username='$username' AND password='$password'");
-if($result)
-{
-$row=mysqli_fetch_assoc($result);
-$count=mysqli_num_rows($result);
-
-if($count == 1 && $type == "admin")
-  {    
-    $_SESSION['id']  = $row['login_id'];
-    $_SESSION['username']=$row['username'];
-      ?>
-      <script>
-        window.location.assign('admin_dashboard.php');
-      </script>
-      <?php
-  }
-  elseif($count==1 && $type=="customer")
-  {
- $_SESSION['id'] = $row['login_id'];
- $id = $_SESSION['id'];
-    $query = mysqli_query($conn,"SELECT * FROM customer_registration WHERE customer_id='$id'");
-   
-    $q = mysqli_fetch_assoc($query);
+  $name = $_POST['name'];
+  $mobile = $_POST['mobile'];
+  $place = $_POST['place'];
+  $email = $_POST['email'];
+ 
+  $filename = $_FILES["photo"]["name"];
+    $tempname = $_FILES["photo"]["tmp_name"];  
+    $folder = "./image/".$filename;
+    $image=$filename; 
+    $uploadOk = 1; 
+    $imageFileType =strtolower(pathinfo($folder,PATHINFO_EXTENSION));
     
-    if($q['approval_status'] ==1)
-    {      
-      ?>
-<script>window.location.assign('customer_dashboard.php');</script>
-<?php
+    if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif" ) {
+        echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+        $uploadOk = 0;
     }
-  
-    else
+    if($uploadOk == 0)
     {
-      echo"You need approval by admin";
+        echo "Sorry";
+    
     }
-  }
-  elseif($count==1 && $type=="owner")
-  {
-    $_SESSION['id'] = $row['login_id'];
-    $id = $_SESSION['id'];
-    $query1 = mysqli_query($conn,"SELECT * FROM owner_registration WHERE owner_id = '$id'");
-    $r= mysqli_fetch_assoc($query1);
-    if($r['approval_status'] == 1)
-    {
-?>
-<script>window.location.assign('owner_dashboard.php');</script>
-<?php
+    else{
+        move_uploaded_file($tempname,$folder);  
     }
-    else
-    {
-      ?>
 
-      <script>alert('you need approval of admin');</script>
-      <?php
-    }
-    }
+  
+  $username = $_POST['username'];
+  $password = $_POST['password'];
+  $type = $_POST['type'];
+
+  mysqli_query($conn,"INSERT INTO customer_registration(name,mobile,place,email,photo,approval_status) VALUES('$name','$mobile','$place','$email','$image','0')");
+  $log =mysqli_insert_id($conn);
+  $sql = mysqli_query($conn,"INSERT INTO login(login_id,username,password,type) VALUES('$log','$username','$password','$type')");
+  if($sql)
+  {
+    echo '<script>alert("Registration completed successfully");</script>';
+    ?>
+    
+   <script>window.location.assign('customer_register.php');</script> 
+   <?php
+  
   }
-}
   else
   {
-    echo "invalid username,password or type";
+    echo 'something went wrong';
   }
+}
   
-
-
-   ?>
-
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -129,8 +104,8 @@ if($count == 1 && $type == "admin")
       <nav id="navbar" class="navbar order-last order-lg-0">
         <ul>
           <li><a class="nav-link scrollto active" href="index.php">Home</a></li>
-          
-            <ul>
+         
+       
              
     
         </ul>
@@ -147,32 +122,33 @@ if($count == 1 && $type == "admin")
     <div class="container mt-1" data-aos="fade-up">
 
       <div class="row justify-content-center" data-aos="fade-up" data-aos-delay="150">   
-
-      <form action="" method="post">
-  <div class="imgcontainer">
-    <img src="https://img.freepik.com/free-vector/login-concept-illustration_114360-739.jpg?w=2000" alt="Avatar" class="avatar" style="height:200px; width:400px">
-  </div>
-
-  <div class="container bg-light" style="height:300px; width:400px">
-  <select name="type" style="margin-bottom:5">
-      <option value="admin">admin</option>
-      <option value="owner">owner</option>
-      <option value="customer">customer</option>
-    </select><br>
-    <label for="uname" style="color:black"><b>Username</b></label>
-    <input type="text"  class="mt-2" style="width:200px" placeholder="Enter Username" name="username" required><br><br>
-
-    <label for="psw" style="color:black"><b>Password</b></label>
-    <input type="password" style="width:200px" class="mb-1" placeholder="Enter Password" name="password" required><br>
-   
-    <button type="submit" class="btn btn-primary mt-0" name="submit">Login</button>
-    <br>
-    <a href="owner_registration.php" class="btn btn-secondary p-1 mt-1 my-5">owner</a>
-    <a href="customer_register.php" class="btn btn-secondary p-1 mt-1 my-5">customer</a>
-
-  </div>
-</form>
-
+        <h3 style="color:white;">Sign up here</h3>
+        <div class="card" style="width:500px">
+          <div class="card-header" style="background-color:aquamarine">
+          Customer Registration
+          </div>
+          <div class="card-body">
+            <form action="customer_register.php" method="POST" enctype="multipart/form-data">
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="Name" name="name">
+            <input type="number" class="form-control mt-2" placeholder="Mobile_number" name="mobile">
+            <input type="text" class="form-control mt-2" placeholder="Place" name="place">
+            <input type="email" class="form-control mt-2" placeholder="Email ID" name="email">
+            <input type="email" class="form-control mt-2" placeholder="Username" name="username">
+            <input type="password" class="form-control mt-2" placeholder="Password" name="password">
+            <select name="type" class="form-control mt-2 ">
+              <option>Select user type</option>
+              <option value="owner">Owner</option>
+              <option value="customer">Customer</option>
+            </select>
+            <input type="file" class="form-control mt-2" name="photo">
+            <input type="submit" class="btn btn-primary mt-2"  name="submit" value="submit">
+          </div>
+            </form>
+          </div>
+        </div>
+        
+     
     </div>
   </section><!-- End Hero -->
 

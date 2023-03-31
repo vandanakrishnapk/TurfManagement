@@ -1,82 +1,12 @@
 <?php
 session_start();
-include 'connection.php';
-
-if(isset($_POST['submit']))
+if(!isset($_SESSION['id']))
 {
-    $username  = $_POST['username'];
-    $password = $_POST['password']; 
-    $type = $_POST['type'];
-
-
-$result = mysqli_query($conn,$sql="SELECT * FROM login  WHERE username='$username' AND password='$password'");
-if($result)
+  header('location:login.php');
+} 
+else
 {
-$row=mysqli_fetch_assoc($result);
-$count=mysqli_num_rows($result);
-
-if($count == 1 && $type == "admin")
-  {    
-    $_SESSION['id']  = $row['login_id'];
-    $_SESSION['username']=$row['username'];
-      ?>
-      <script>
-        window.location.assign('admin_dashboard.php');
-      </script>
-      <?php
-  }
-  elseif($count==1 && $type=="customer")
-  {
- $_SESSION['id'] = $row['login_id'];
- $id = $_SESSION['id'];
-    $query = mysqli_query($conn,"SELECT * FROM customer_registration WHERE customer_id='$id'");
-   
-    $q = mysqli_fetch_assoc($query);
-    
-    if($q['approval_status'] ==1)
-    {      
-      ?>
-<script>window.location.assign('customer_dashboard.php');</script>
-<?php
-    }
-  
-    else
-    {
-      echo"You need approval by admin";
-    }
-  }
-  elseif($count==1 && $type=="owner")
-  {
-    $_SESSION['id'] = $row['login_id'];
-    $id = $_SESSION['id'];
-    $query1 = mysqli_query($conn,"SELECT * FROM owner_registration WHERE owner_id = '$id'");
-    $r= mysqli_fetch_assoc($query1);
-    if($r['approval_status'] == 1)
-    {
 ?>
-<script>window.location.assign('owner_dashboard.php');</script>
-<?php
-    }
-    else
-    {
-      ?>
-
-      <script>alert('you need approval of admin');</script>
-      <?php
-    }
-    }
-  }
-}
-  else
-  {
-    echo "invalid username,password or type";
-  }
-  
-
-
-   ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -84,7 +14,7 @@ if($count == 1 && $type == "admin")
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Turf Booking Management</title>
+  <title>Turf Booking Management/admin</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -129,7 +59,10 @@ if($count == 1 && $type == "admin")
       <nav id="navbar" class="navbar order-last order-lg-0">
         <ul>
           <li><a class="nav-link scrollto active" href="index.php">Home</a></li>
-          
+          <li><a class="nav-link scrollto active" href="view_customer.php">view customer</a></li>
+          <li><a class="nav-link scrollto active" href="#">view owner</a></li>
+          <li><a class="nav-link scrollto active" href="#">view profile</a></li>
+          <li><a class="nav-link scrollto active" href="logout.php">logout</a></li>
             <ul>
              
     
@@ -147,32 +80,8 @@ if($count == 1 && $type == "admin")
     <div class="container mt-1" data-aos="fade-up">
 
       <div class="row justify-content-center" data-aos="fade-up" data-aos-delay="150">   
-
-      <form action="" method="post">
-  <div class="imgcontainer">
-    <img src="https://img.freepik.com/free-vector/login-concept-illustration_114360-739.jpg?w=2000" alt="Avatar" class="avatar" style="height:200px; width:400px">
-  </div>
-
-  <div class="container bg-light" style="height:300px; width:400px">
-  <select name="type" style="margin-bottom:5">
-      <option value="admin">admin</option>
-      <option value="owner">owner</option>
-      <option value="customer">customer</option>
-    </select><br>
-    <label for="uname" style="color:black"><b>Username</b></label>
-    <input type="text"  class="mt-2" style="width:200px" placeholder="Enter Username" name="username" required><br><br>
-
-    <label for="psw" style="color:black"><b>Password</b></label>
-    <input type="password" style="width:200px" class="mb-1" placeholder="Enter Password" name="password" required><br>
-   
-    <button type="submit" class="btn btn-primary mt-0" name="submit">Login</button>
-    <br>
-    <a href="owner_registration.php" class="btn btn-secondary p-1 mt-1 my-5">owner</a>
-    <a href="customer_register.php" class="btn btn-secondary p-1 mt-1 my-5">customer</a>
-
-  </div>
-</form>
-
+<h1>Welcome to admin dashboard</h1>
+     
     </div>
   </section><!-- End Hero -->
 
@@ -249,3 +158,6 @@ if($count == 1 && $type == "admin")
 </body>
 
 </html>
+<?php 
+}
+?>
