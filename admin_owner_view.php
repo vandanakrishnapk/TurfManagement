@@ -1,6 +1,6 @@
 <?php
 include "connection.php";
-$query = mysqli_query($conn,"SELECT * FROM customer_registration");
+$query = mysqli_query($conn,"SELECT * FROM owner_registration");
 
 ?>
 <!DOCTYPE html>
@@ -40,6 +40,12 @@ $query = mysqli_query($conn,"SELECT * FROM customer_registration");
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
+  <style>
+    #hero
+    {
+      background-image:url("https://media.istockphoto.com/id/520999573/photo/indoor-soccer-football-field.jpg?s=612x612&w=0&k=20&c=X2PinGm51YPcqCAFCqDh7GvJxoG2WnJ19aadfRYk2dI=");
+    }
+  </style>
 </head>
 
 <body>
@@ -48,7 +54,7 @@ $query = mysqli_query($conn,"SELECT * FROM customer_registration");
   <header id="header" class="fixed-top ">
     <div class="container d-flex align-items-center justify-content-lg-between">
 
-      <h1 class="logo me-auto me-lg-0"><a href="index.html">Turf<span>.</span></a></h1>
+      <h1 class="logo me-auto me-lg-0"><a href="index.html">Turf-Admin<span>.</span></a></h1>
       <!-- Uncomment below if you prefer to use an image logo -->
       <!-- <a href="index.html" class="logo me-auto me-lg-0"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
 
@@ -91,7 +97,7 @@ $query = mysqli_query($conn,"SELECT * FROM customer_registration");
             {
             ?>
                 <tr>
-                <td><?php echo $rd['customer_id']; ?></td>
+                <td><?php echo $rd['owner_id']; ?></td>
                 <td><?php echo $rd['name']; ?></td>
                 <td><?php echo $rd['mobile']; ?></td>
                 <td><?php echo$rd['place']; ?></td>
@@ -101,7 +107,7 @@ $query = mysqli_query($conn,"SELECT * FROM customer_registration");
                 if($rd['approval_status'] == 0)
                 {  
                   ?>   
-                   <a class="btn btn-primary p-1" href="approval_update.php?update_id=<?php echo $rd['customer_id'];?>">Approve</a>           
+                   <a class="btn btn-primary p-1" href="approval_update_owner.php?update_id2=<?php echo $rd['owner_id'];?>">Approve</a>           
                     
                     <?php 
                 }
@@ -117,7 +123,7 @@ $query = mysqli_query($conn,"SELECT * FROM customer_registration");
             <?php } ?>
            </table>
          
-        
+        <a href="admin_dashboard.php">Go back</a>
             </div>
         
      

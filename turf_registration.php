@@ -1,12 +1,21 @@
 <?php
+session_start();
 include 'connection.php';
+if(!isset($_SESSION['ido']))
+{
+    
+  header('location:login.php');
+}
+else
+{
 if(isset($_POST['submit']))
 {
-  $name = $_POST['name'];
-  $mobile = $_POST['mobile'];
-  $place = $_POST['place'];
+    $turf_name = $_POST['turf_name'];
+  $turf_place = $_POST['turf_place'];
   $email = $_POST['email'];
- 
+  $cost = $_POST['cost'];
+  $owner_id = $_SESSION['ido'];
+  echo var_dump($owner_id);
   $filename = $_FILES["photo"]["name"];
     $tempname = $_FILES["photo"]["tmp_name"];  
     $folder = "./image/".$filename;
@@ -28,19 +37,17 @@ if(isset($_POST['submit']))
     }
 
   
-  $username = $_POST['username'];
-  $password = $_POST['password'];
-  $type = $_POST['type'];
+  
 
-  mysqli_query($conn,"INSERT INTO owner_registration(name,mobile,place,email,photo,approval_status) VALUES('$name','$mobile','$place','$email','$image','0')");
-  $log =mysqli_insert_id($conn);
-  $sql = mysqli_query($conn,"INSERT INTO login(login_id,username,password,type) VALUES('$log','$username','$password','$type')");
+  $sql= mysqli_query($conn,"INSERT INTO turf_registration(owner_id,turf_name,turf_place,email,cost,turf_image) VALUES($owner_id,$turf_name,$turf_place,$email,$cost,$image)");
+  
+  
   if($sql)
   {
-    echo '<script>alert("Registration completed successfully");</script>';
+    echo '<script>alert("Turf registered successfully");</script>';
     ?>
     
-   <script>window.location.assign('owner_registration.php');</script> 
+   <script>window.location.assign('owner_dashboard.php');</script> 
    <?php
   
   }
@@ -134,20 +141,13 @@ if(isset($_POST['submit']))
           Owner Registration
           </div>
           <div class="card-body">
-            <form action="owner_registration.php" method="POST" enctype="multipart/form-data">
+            <form action="turf_registration.php" method="POST" enctype="multipart/form-data">
           <div class="form-group">
-            <input type="text" class="form-control" placeholder="Name" name="name">
-            <input type="number" class="form-control mt-2" placeholder="Mobile_number" name="mobile">
-            <input type="text" class="form-control mt-2" placeholder="Place" name="place">
+            <input type="text" class="form-control" placeholder="Turf_Name" name="turf_name">
+            <input type="text" class="form-control mt-2" placeholder="Turf_place" name="turf_place">
             <input type="email" class="form-control mt-2" placeholder="Email ID" name="email">
-            <input type="email" class="form-control mt-2" placeholder="Username" name="username">
-            <input type="password" class="form-control mt-2" placeholder="Password" name="password">
-            <select name="type" class="form-control mt-2 ">
-              <option>Select user type</option>
-              <option value="owner">Owner</option>
-              <option value="customer">Customer</option>
-            </select>
             <input type="file" class="form-control mt-2" name="photo">
+            <input type="number" class="form-control mt-2" placeholder="cost" name="cost">
             <input type="submit" class="btn btn-primary mt-2"  name="submit" value="submit">
           </div>
             </form>
@@ -231,3 +231,4 @@ if(isset($_POST['submit']))
 </body>
 
 </html>
+<?php } ?>

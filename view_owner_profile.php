@@ -8,7 +8,7 @@ else
 {
 include "connection.php";
 $id = $_SESSION['id'];
-$sql = mysqli_query($conn,"SELECT * FROM customer_registration WHERE customer_id = '$id'");
+$sql = mysqli_query($conn,"SELECT * FROM owner_registration WHERE owner_id = '$id'");
 
 ?>
 <!DOCTYPE html>
@@ -137,7 +137,7 @@ $sql = mysqli_query($conn,"SELECT * FROM customer_registration WHERE customer_id
         </div>
         <div class="form-group mt-4">
             <a class="btn btn-primary">edit</a>
-            <a class="btn btn-primary" href="customer_dashboard.php">Back</a>
+            <a class="btn btn-primary" href="owner_dashboard.php">Back</a>
          
         </div>
 

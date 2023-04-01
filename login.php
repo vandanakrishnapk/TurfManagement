@@ -47,8 +47,8 @@ if($count == 1 && $type == "admin")
   }
   elseif($count==1 && $type=="owner")
   {
-    $_SESSION['id'] = $row['login_id'];
-    $id = $_SESSION['id'];
+    $_SESSION['ido'] = $row['login_id'];
+    $id = $_SESSION['ido'];
     $query1 = mysqli_query($conn,"SELECT * FROM owner_registration WHERE owner_id = '$id'");
     $r= mysqli_fetch_assoc($query1);
     if($r['approval_status'] == 1)
@@ -66,12 +66,13 @@ if($count == 1 && $type == "admin")
     }
     }
   }
-}
-  else
+    else
   {
     echo "invalid username,password or type";
   }
   
+}
+
 
 
    ?>

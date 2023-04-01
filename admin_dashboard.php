@@ -44,6 +44,12 @@ else
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
+  <style>
+    #hero
+    {
+      background-image:url("https://media.istockphoto.com/id/520999573/photo/indoor-soccer-football-field.jpg?s=612x612&w=0&k=20&c=X2PinGm51YPcqCAFCqDh7GvJxoG2WnJ19aadfRYk2dI=");
+    }
+  </style>
 </head>
 
 <body>
@@ -52,20 +58,17 @@ else
   <header id="header" class="fixed-top ">
     <div class="container d-flex align-items-center justify-content-lg-between">
 
-      <h1 class="logo me-auto me-lg-0"><a href="index.html">Turf<span>.</span></a></h1>
+      <h1 class="logo me-auto me-lg-0"><a href="index.html">Turf-Admin<span>.</span></a></h1>
       <!-- Uncomment below if you prefer to use an image logo -->
       <!-- <a href="index.html" class="logo me-auto me-lg-0"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
 
       <nav id="navbar" class="navbar order-last order-lg-0">
         <ul>
           <li><a class="nav-link scrollto active" href="index.php">Home</a></li>
-          <li><a class="nav-link scrollto active" href="view_customer.php">view customer</a></li>
-          <li><a class="nav-link scrollto active" href="#">view owner</a></li>
-          <li><a class="nav-link scrollto active" href="#">view profile</a></li>
-          <li><a class="nav-link scrollto active" href="logout.php">logout</a></li>
-            <ul>
-             
-    
+          <li><a class="nav-link scrollto active" href="admin_customer_view.php">view customer</a></li>
+          <li><a class="nav-link scrollto active" href="admin_owner_view.php">view owner</a></li>
+          <li><a class="nav-link scrollto active" href="#">change_password</a></li>
+          <li><a class="nav-link scrollto active" href="logout.php">logout</a></li>          
         </ul>
         
       </nav><!-- .navbar -->
@@ -80,7 +83,7 @@ else
     <div class="container mt-1" data-aos="fade-up">
 
       <div class="row justify-content-center" data-aos="fade-up" data-aos-delay="150">   
-<h1>Welcome to admin dashboard</h1>
+
      
     </div>
   </section><!-- End Hero -->

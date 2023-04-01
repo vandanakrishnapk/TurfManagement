@@ -1,57 +1,8 @@
 <?php
-include 'connection.php';
-if(isset($_POST['submit']))
-{
-  $name = $_POST['name'];
-  $mobile = $_POST['mobile'];
-  $place = $_POST['place'];
-  $email = $_POST['email'];
- 
-  $filename = $_FILES["photo"]["name"];
-    $tempname = $_FILES["photo"]["tmp_name"];  
-    $folder = "./image/".$filename;
-    $image=$filename; 
-    $uploadOk = 1; 
-    $imageFileType =strtolower(pathinfo($folder,PATHINFO_EXTENSION));
-    
-    if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif" ) {
-        echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
-        $uploadOk = 0;
-    }
-    if($uploadOk == 0)
-    {
-        echo "Sorry";
-    
-    }
-    else{
-        move_uploaded_file($tempname,$folder);  
-    }
+include "connection.php";
+$query = mysqli_query($conn,"SELECT * FROM customer_registration");
 
-  
-  $username = $_POST['username'];
-  $password = $_POST['password'];
-  $type = $_POST['type'];
-
-  mysqli_query($conn,"INSERT INTO owner_registration(name,mobile,place,email,photo,approval_status) VALUES('$name','$mobile','$place','$email','$image','0')");
-  $log =mysqli_insert_id($conn);
-  $sql = mysqli_query($conn,"INSERT INTO login(login_id,username,password,type) VALUES('$log','$username','$password','$type')");
-  if($sql)
-  {
-    echo '<script>alert("Registration completed successfully");</script>';
-    ?>
-    
-   <script>window.location.assign('owner_registration.php');</script> 
-   <?php
-  
-  }
-  else
-  {
-    echo 'something went wrong';
-  }
-}
-  
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -63,7 +14,7 @@ if(isset($_POST['submit']))
   <meta content="" name="description">
   <meta content="" name="keywords">
 
-  <!-- Favicons -->
+  <!-- Favicons
   <link href="https://media.istockphoto.com/id/520999573/photo/indoor-soccer-football-field.jpg?s=612x612&w=0&k=20&c=X2PinGm51YPcqCAFCqDh7GvJxoG2WnJ19aadfRYk2dI=" rel="icon">
   <link href="https://media.istockphoto.com/id/520999573/photo/indoor-soccer-football-field.jpg?s=612x612&w=0&k=20&c=X2PinGm51YPcqCAFCqDh7GvJxoG2WnJ19aadfRYk2dI=" rel="apple-touch-icon">
 
@@ -77,7 +28,7 @@ if(isset($_POST['submit']))
   <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
   <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
   <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet"> 
 
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
@@ -103,7 +54,7 @@ if(isset($_POST['submit']))
   <header id="header" class="fixed-top ">
     <div class="container d-flex align-items-center justify-content-lg-between">
 
-      <h1 class="logo me-auto me-lg-0"><a href="index.html">Turf<span>.</span></a></h1>
+      <h1 class="logo me-auto me-lg-0"><a href="index.html">Turf-Admin<span>.</span></a></h1>
       <!-- Uncomment below if you prefer to use an image logo -->
       <!-- <a href="index.html" class="logo me-auto me-lg-0"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
 
@@ -128,31 +79,52 @@ if(isset($_POST['submit']))
     <div class="container mt-1" data-aos="fade-up">
 
       <div class="row justify-content-center" data-aos="fade-up" data-aos-delay="150">   
-        <h3 style="color:white;">Sign up here</h3>
-        <div class="card" style="width:500px">
-          <div class="card-header" style="background-color:bisque">
-          Owner Registration
-          </div>
-          <div class="card-body">
-            <form action="owner_registration.php" method="POST" enctype="multipart/form-data">
-          <div class="form-group">
-            <input type="text" class="form-control" placeholder="Name" name="name">
-            <input type="number" class="form-control mt-2" placeholder="Mobile_number" name="mobile">
-            <input type="text" class="form-control mt-2" placeholder="Place" name="place">
-            <input type="email" class="form-control mt-2" placeholder="Email ID" name="email">
-            <input type="email" class="form-control mt-2" placeholder="Username" name="username">
-            <input type="password" class="form-control mt-2" placeholder="Password" name="password">
-            <select name="type" class="form-control mt-2 ">
-              <option>Select user type</option>
-              <option value="owner">Owner</option>
-              <option value="customer">Customer</option>
-            </select>
-            <input type="file" class="form-control mt-2" name="photo">
-            <input type="submit" class="btn btn-primary mt-2"  name="submit" value="submit">
-          </div>
-            </form>
-          </div>
-        </div>
+     
+       
+         
+           <table class = "table table-bordered" style="color:white">
+            <tr>
+                <th>Regno</th>
+                <th>Name</th>
+                <th>Mobile</th>
+                <th>Place</th>
+                <th>Email</th>
+                <th>Photo</th>
+                <th>Approval</th>
+            </tr>
+            <?php
+            while($rd = mysqli_fetch_array($query))
+            {
+            ?>
+                <tr>
+                <td><?php echo $rd['customer_id']; ?></td>
+                <td><?php echo $rd['name']; ?></td>
+                <td><?php echo $rd['mobile']; ?></td>
+                <td><?php echo$rd['place']; ?></td>
+                <td><?php echo $rd['email']; ?></td>
+                <td><img src="./image/<?php echo $rd['photo'];?>" alt="" width="30" height="30"></td>
+                <td><?php 
+                if($rd['approval_status'] == 0)
+                {  
+                  ?>   
+                   <a class="btn btn-primary p-1" href="approval_update.php?update_id=<?php echo $rd['customer_id'];?>">Approve</a>           
+                    
+                    <?php 
+                }
+                      else{
+                        ?>
+                     <a class="btn btn-danger p-1" href="#">Approved</a>
+                  <?php } ?> 
+                  </td>
+                
+              
+                ?></td>
+                </tr>
+            <?php } ?>
+           </table>
+         
+        <a href="admin_dashboard.php">Go back</a>
+            </div>
         
      
     </div>

@@ -44,6 +44,12 @@ else
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
+  <style>
+    #hero
+    {
+      background-image:url("https://media.istockphoto.com/id/520999573/photo/indoor-soccer-football-field.jpg?s=612x612&w=0&k=20&c=X2PinGm51YPcqCAFCqDh7GvJxoG2WnJ19aadfRYk2dI=");
+    }
+  </style>
 </head>
 
 <body>
@@ -59,8 +65,9 @@ else
       <nav id="navbar" class="navbar order-last order-lg-0">
         <ul>
           <li><a class="nav-link scrollto active" href="index.php">Home</a></li>
-          <li><a class="nav-link scrollto active" href="#">view turf</a></li>
-          <li><a class="nav-link scrollto active" href="view_customer_profile.php">view profile</a></li>
+          <li><a class="nav-link scrollto active" href="turf_registration.php">Register_turf</a></li>
+          <li><a class="nav-link scrollto active" href="#">view_turf</a></li>
+          <li><a class="nav-link scrollto active" href="view_owner_profile.php">view profile</a></li>
           <li><a class="nav-link scrollto active" href="logout.php">logout</a></li>
             <ul>           
     
