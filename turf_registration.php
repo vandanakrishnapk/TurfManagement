@@ -1,27 +1,25 @@
 <?php
 session_start();
 include 'connection.php';
-if(!isset($_SESSION['ido']))
-{
-    
+if(!isset($_SESSION['id']))
+{    
   header('location:login.php');
 }
 else
 {
 if(isset($_POST['submit']))
 {
-    $turf_name = $_POST['turf_name'];
+  $owner_id = $_SESSION['id'];
+  $turf_name = $_POST['turf_name'];
   $turf_place = $_POST['turf_place'];
   $email = $_POST['email'];
   $cost = $_POST['cost'];
-  $owner_id = $_SESSION['ido'];
-  echo var_dump($owner_id);
   $filename = $_FILES["photo"]["name"];
-    $tempname = $_FILES["photo"]["tmp_name"];  
-    $folder = "./image/".$filename;
-    $image=$filename; 
-    $uploadOk = 1; 
-    $imageFileType =strtolower(pathinfo($folder,PATHINFO_EXTENSION));
+  $tempname = $_FILES["photo"]["tmp_name"];  
+  $folder = "./image/".$filename;
+  $image=$filename; 
+  $uploadOk = 1; 
+  $imageFileType =strtolower(pathinfo($folder,PATHINFO_EXTENSION));
     
     if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif" ) {
         echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
@@ -39,7 +37,7 @@ if(isset($_POST['submit']))
   
   
 
-  $sql= mysqli_query($conn,"INSERT INTO turf_registration(owner_id,turf_name,turf_place,email,cost,turf_image) VALUES($owner_id,$turf_name,$turf_place,$email,$cost,$image)");
+  $sql= mysqli_query($conn,"INSERT INTO turf_registration(owner_id,turf_name,turf_place,email,turf_image,cost) VALUES('$owner_id','$turf_name','$turf_place','$email','$image','$cost')");
   
   
   if($sql)
@@ -47,7 +45,7 @@ if(isset($_POST['submit']))
     echo '<script>alert("Turf registered successfully");</script>';
     ?>
     
-   <script>window.location.assign('owner_dashboard.php');</script> 
+   <script>window.location.assign('view_turf.php');</script> 
    <?php
   
   }
@@ -138,7 +136,7 @@ if(isset($_POST['submit']))
         <h3 style="color:white;">Sign up here</h3>
         <div class="card" style="width:500px">
           <div class="card-header" style="background-color:bisque">
-          Owner Registration
+          Turf Registration
           </div>
           <div class="card-body">
             <form action="turf_registration.php" method="POST" enctype="multipart/form-data">
@@ -149,6 +147,7 @@ if(isset($_POST['submit']))
             <input type="file" class="form-control mt-2" name="photo">
             <input type="number" class="form-control mt-2" placeholder="cost" name="cost">
             <input type="submit" class="btn btn-primary mt-2"  name="submit" value="submit">
+            <a href="owner_dashboard.php" class="btn btn-primary">Back</a>
           </div>
             </form>
           </div>

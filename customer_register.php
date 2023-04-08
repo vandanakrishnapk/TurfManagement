@@ -29,20 +29,15 @@ if(isset($_POST['submit']))
 
   
   $username = $_POST['username'];
-  $password = $_POST['password'];
-  $type = $_POST['type'];
+  $hash = password_hash($_POST['password'], PASSWORD_DEFAULT);
+
 
   mysqli_query($conn,"INSERT INTO customer_registration(name,mobile,place,email,photo,approval_status) VALUES('$name','$mobile','$place','$email','$image','0')");
   $log =mysqli_insert_id($conn);
-  $sql = mysqli_query($conn,"INSERT INTO login(login_id,username,password,type) VALUES('$log','$username','$password','$type')");
+  $sql = mysqli_query($conn,"INSERT INTO login(login_id,username,password,type) VALUES('$log','$username','$hash','customer')");
   if($sql)
   {
-    echo '<script>alert("Registration completed successfully");</script>';
-    ?>
-    
-   <script>window.location.assign('customer_register.php');</script> 
-   <?php
-  
+    echo '<script>alert("Registration completed successfully");header("Location: customer_register.php"); </script>';
   }
   else
   {
@@ -95,6 +90,8 @@ if(isset($_POST['submit']))
       background-image:url("https://media.istockphoto.com/id/520999573/photo/indoor-soccer-football-field.jpg?s=612x612&w=0&k=20&c=X2PinGm51YPcqCAFCqDh7GvJxoG2WnJ19aadfRYk2dI=");
     }
   </style>
+
+
 </head>
 
 <body>
@@ -127,29 +124,25 @@ if(isset($_POST['submit']))
   <section id="hero" class="d-flex align-items-center justify-content-center">
     <div class="container mt-1" data-aos="fade-up">
 
-      <div class="row justify-content-center" data-aos="fade-up" data-aos-delay="150">   
+    
+    <div class="row justify-content-center" data-aos="fade-up" data-aos-delay="150">   
         <h3 style="color:white;">Sign up here</h3>
         <div class="card" style="width:500px">
           <div class="card-header" style="background-color:aquamarine">
           Customer Registration
           </div>
           <div class="card-body">
-            <form action="customer_register.php" method="POST" enctype="multipart/form-data">
-          <div class="form-group">
-            <input type="text" class="form-control" placeholder="Name" name="name">
-            <input type="number" class="form-control mt-2" placeholder="Mobile_number" name="mobile">
-            <input type="text" class="form-control mt-2" placeholder="Place" name="place">
-            <input type="email" class="form-control mt-2" placeholder="Email ID" name="email">
-            <input type="email" class="form-control mt-2" placeholder="Username" name="username">
-            <input type="password" class="form-control mt-2" placeholder="Password" name="password">
-            <select name="type" class="form-control mt-2 ">
-              <option>Select user type</option>
-              <option value="owner">Owner</option>
-              <option value="customer">Customer</option>
-            </select>
+            <form  name="myform" method="POST" enctype="multipart/form-data" required>
+            <div class="form-group">
+            <input type="text" class="form-control" placeholder="Name" name="name" id="name" onkeyup="clearmsg('sp1')"><span style="color: red;" id="sp1"></span>
+            <input type="number" class="form-control mt-2" placeholder="Mobile_number" name="mobile" id="mobile" onkeyup="clearmsg('sp2')"><span style="color: red;" id="sp2"></span>
+            <input type="text" class="form-control mt-2" placeholder="Place" name="place" id="place" onkeyup="clearmsg('sp3')"><span style="color: red;" id="sp3"></span>
+            <input type="email" class="form-control mt-2" placeholder="Email ID" name="email" id="email" onkeyup="clearmsg('sp4')"><span style="color: red;" id="sp4"></span>
+            <input type="email" class="form-control mt-2" placeholder="Username" name="username" id="username" onkeyup="clearmsg('sp5')"><span style="color: red;" id="sp5"></span>
+            <input type="password" class="form-control mt-2" placeholder="Password" name="password" id="password" onkeyup="clearmsg('sp6')"><span style="color: red;" id="sp6"></span>
             <input type="file" class="form-control mt-2" name="photo">
-            <input type="submit" class="btn btn-primary mt-2"  name="submit" value="submit">
-          </div>
+            <button onclick="return valid(); return false;" name="submit">Submit</button>
+            </div>
             </form>
           </div>
         </div>
@@ -172,6 +165,8 @@ if(isset($_POST['submit']))
 
       </div>
     </section><!-- End About Section -->
+
+
 
    
   <!-- ======= Footer ======= -->
@@ -227,7 +222,63 @@ if(isset($_POST['submit']))
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+<script type="text/javascript">
+function valid()
+{  
+  var name = document.getElementById("name").value;
+  var mobile = document.getElementById("mobile").value;
+  var place = document.getElementById("place").value;
+  var email = document.getElementById("email").value;
+  var username = document.getElementById("username").value;
+  var password = document.getElementById("password").value;
 
+  
+if (name=="")
+{   
+  
+   document.getElementById("sp1").innerHTML="please enter your name";
+  return false;
+}
+
+if(mobile == "")
+{
+  document.getElementById("sp2").innerHTML="please enter mobile";
+   return false;
+}
+
+if(place == "")
+{
+  document.getElementById("sp3").innerHTML="please enter place";
+   return false;
+}
+
+if(email == "")
+{
+  document.getElementById("sp4").innerHTML="please enter email";
+   return false;
+}
+
+
+if(username == "")
+{
+  document.getElementById("sp5").innerHTML="please enter username";
+   return false;
+}
+
+
+if(password == "")
+{
+  document.getElementById("sp6").innerHTML="please enter password";
+  return false;
+}
+return true;
+}  
+function clearmsg(sp)
+{
+document.getElementById(sp).innerHTML="";
+}
+
+    </script>
 </body>
 
 </html>

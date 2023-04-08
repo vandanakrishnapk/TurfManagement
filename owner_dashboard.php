@@ -66,7 +66,7 @@ else
         <ul>
           <li><a class="nav-link scrollto active" href="index.php">Home</a></li>
           <li><a class="nav-link scrollto active" href="turf_registration.php">Register_turf</a></li>
-          <li><a class="nav-link scrollto active" href="#">view_turf</a></li>
+          <li><a class="nav-link scrollto active" href="view_turf.php">view_turf</a></li>
           <li><a class="nav-link scrollto active" href="view_owner_profile.php">view profile</a></li>
           <li><a class="nav-link scrollto active" href="logout.php">logout</a></li>
             <ul>           
@@ -85,7 +85,7 @@ else
     <div class="container mt-1" data-aos="fade-up">
 
       <div class="row justify-content-center" data-aos="fade-up" data-aos-delay="150">   
-<h1>Welcome to dashboard</h1>
+
      
     </div>
   </section><!-- End Hero -->

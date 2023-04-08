@@ -111,7 +111,8 @@ $query = mysqli_query($conn,"SELECT * FROM customer_registration");
                     
                     <?php 
                 }
-                      else{
+                elseif($rd['approval_status'] == 1)
+                {
                         ?>
                      <a class="btn btn-danger p-1" href="#">Approved</a>
                   <?php } ?> 

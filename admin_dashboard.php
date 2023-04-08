@@ -67,6 +67,7 @@ else
           <li><a class="nav-link scrollto active" href="index.php">Home</a></li>
           <li><a class="nav-link scrollto active" href="admin_customer_view.php">view customer</a></li>
           <li><a class="nav-link scrollto active" href="admin_owner_view.php">view owner</a></li>
+          <li><a class="nav-link scrollto active" href="admin_turf_view.php">view turf</a></li>
           <li><a class="nav-link scrollto active" href="#">change_password</a></li>
           <li><a class="nav-link scrollto active" href="logout.php">logout</a></li>          
         </ul>

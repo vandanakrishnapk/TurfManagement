@@ -9,13 +9,15 @@ if(isset($_POST['submit']))
     $type = $_POST['type'];
 
 
-$result = mysqli_query($conn,$sql="SELECT * FROM login  WHERE username='$username' AND password='$password'");
+$result = mysqli_query($conn,$sql="SELECT * FROM login  WHERE username='$username'");
 if($result)
 {
 $row=mysqli_fetch_assoc($result);
+$hash = password_verify($password,$row['password']);
+
 $count=mysqli_num_rows($result);
 
-if($count == 1 && $type == "admin")
+if($count == 1 && $type == "admin" && $hash)
   {    
     $_SESSION['id']  = $row['login_id'];
     $_SESSION['username']=$row['username'];
@@ -25,7 +27,7 @@ if($count == 1 && $type == "admin")
       </script>
       <?php
   }
-  elseif($count==1 && $type=="customer")
+  elseif($count==1 && $type=="customer" && $hash)
   {
  $_SESSION['id'] = $row['login_id'];
  $id = $_SESSION['id'];
@@ -45,10 +47,10 @@ if($count == 1 && $type == "admin")
       echo"You need approval by admin";
     }
   }
-  elseif($count==1 && $type=="owner")
+  elseif($count==1 && $type=="owner" && $hash)
   {
-    $_SESSION['ido'] = $row['login_id'];
-    $id = $_SESSION['ido'];
+    $_SESSION['id'] = $row['login_id'];
+    $id = $_SESSION['id'];
     $query1 = mysqli_query($conn,"SELECT * FROM owner_registration WHERE owner_id = '$id'");
     $r= mysqli_fetch_assoc($query1);
     if($r['approval_status'] == 1)

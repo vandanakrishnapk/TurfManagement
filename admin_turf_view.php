@@ -1,13 +1,6 @@
 <?php
-session_start();
-if(!isset($_SESSION['id']))
-{
-  header('location:login.php');
-} 
-else
-{
 include "connection.php";
-$sql = mysqli_query($conn,"SELECT * FROM turf_registration");
+$query = mysqli_query($conn,"SELECT * FROM turf_registration");
 
 ?>
 <!DOCTYPE html>
@@ -17,11 +10,11 @@ $sql = mysqli_query($conn,"SELECT * FROM turf_registration");
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Turf Booking Management/customer</title>
+  <title>Turf Booking Management</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
-  <!-- Favicons -->
+  <!-- Favicons
   <link href="https://media.istockphoto.com/id/520999573/photo/indoor-soccer-football-field.jpg?s=612x612&w=0&k=20&c=X2PinGm51YPcqCAFCqDh7GvJxoG2WnJ19aadfRYk2dI=" rel="icon">
   <link href="https://media.istockphoto.com/id/520999573/photo/indoor-soccer-football-field.jpg?s=612x612&w=0&k=20&c=X2PinGm51YPcqCAFCqDh7GvJxoG2WnJ19aadfRYk2dI=" rel="apple-touch-icon">
 
@@ -35,7 +28,7 @@ $sql = mysqli_query($conn,"SELECT * FROM turf_registration");
   <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
   <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
   <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet"> 
 
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
@@ -53,16 +46,6 @@ $sql = mysqli_query($conn,"SELECT * FROM turf_registration");
       background-image:url("https://media.istockphoto.com/id/520999573/photo/indoor-soccer-football-field.jpg?s=612x612&w=0&k=20&c=X2PinGm51YPcqCAFCqDh7GvJxoG2WnJ19aadfRYk2dI=");
     }
   </style>
-  <style>
-    .card
-    {
-    width:15%;
-    display: flex;
-    justify-content: space-between;
-    display: inline-block;
-    margin-left:5px;
-    }
-  </style>
 </head>
 
 <body>
@@ -71,17 +54,16 @@ $sql = mysqli_query($conn,"SELECT * FROM turf_registration");
   <header id="header" class="fixed-top ">
     <div class="container d-flex align-items-center justify-content-lg-between">
 
-      <h1 class="logo me-auto me-lg-0"><a href="index.html">Turf<span>.</span></a></h1>
+      <h1 class="logo me-auto me-lg-0"><a href="index.html">Turf-Admin<span>.</span></a></h1>
       <!-- Uncomment below if you prefer to use an image logo -->
       <!-- <a href="index.html" class="logo me-auto me-lg-0"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
 
       <nav id="navbar" class="navbar order-last order-lg-0">
         <ul>
           <li><a class="nav-link scrollto active" href="index.php">Home</a></li>
-          <li><a class="nav-link scrollto active" href="#">view turf</a></li>
-          <li><a class="nav-link scrollto active" href="view_customer_profile.php">view profile</a></li>
-          <li><a class="nav-link scrollto active" href="logout.php">logout</a></li>
-            <ul>           
+         
+       
+             
     
         </ul>
         
@@ -97,47 +79,37 @@ $sql = mysqli_query($conn,"SELECT * FROM turf_registration");
     <div class="container mt-1" data-aos="fade-up">
 
       <div class="row justify-content-center" data-aos="fade-up" data-aos-delay="150">   
-      <?php
-        while($row=mysqli_fetch_assoc($sql))
-        {        
+     
+       
+         
+           <table class = "table table-bordered" style="color:white">
+            <tr>
+                <th>Regno</th>
+                <th>Turf_Name</th>             
+                <th>Turf_Place</th>
+                <th>Email</th>
+                <th>cost</th>
+               <th>Photo</th>
+            </tr>
+            <?php
+            while($rd = mysqli_fetch_array($query))
+            {
             ?>
+                <tr>
+                <td><?php echo $rd['turf_id']; ?></td>
+                <td><?php echo $rd['turf_name']; ?></td>
+                <td><?php echo $rd['turf_place']; ?></td>
+                <td><?php echo$rd['email']; ?></td>
+                <td><?php echo $rd['cost']; ?></td>
+                <td><img src="./image/<?php echo $rd['turf_image'];?>" alt="" width="30" height="30"></td>
+                </tr>
+            <?php } ?>
+           </table>
          
-    <div class="card" style="width:75; height:50;">
-    <div class="card-body">      
-    <div class="form-group">
-            <img src="./image/<?php echo $row['turf_image'];?>" alt="" width="150" height="150">
-            </div>        
-        <div class="form-group">
-            <strong>Name:</strong>
-             <?php echo $row['turf_name']; ?>
-        </div>   
-         <div class="form-group">
-            <strong>Place</strong>
-           <?php echo $row['turf_place']; ?>
-        </div>   
-<div class="form-group">
-            <strong>Email</strong>
-         <?php echo $row['email']; ?>
-        </div>
-        <div class="form-group">
-            <strong>Cost</strong>
-         <?php echo $row['cost']; ?>
-        </div>
-        <div class="form-group">
-            <a class="btn btn-primary">Book now</a>
-            <a class="btn btn-primary mt-1" href="#">Back</a>
-         
-        </div>
-
-    </div>
-    </div>
-
-    <?php   
-        }
-     ?>      
-
-
-      </div>  
+        <a href="admin_dashboard.php">Go back</a>
+            </div>
+        
+     
     </div>
   </section><!-- End Hero -->
 
@@ -214,6 +186,3 @@ $sql = mysqli_query($conn,"SELECT * FROM turf_registration");
 </body>
 
 </html>
-<?php 
-}
-?>

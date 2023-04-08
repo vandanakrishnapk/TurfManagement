@@ -107,11 +107,12 @@ $query = mysqli_query($conn,"SELECT * FROM owner_registration");
                 if($rd['approval_status'] == 0)
                 {  
                   ?>   
-                   <a class="btn btn-primary p-1" href="approval_update_owner.php?update_id2=<?php echo $rd['owner_id'];?>">Approve</a>           
+                   <a class="btn btn-primary p-1" href="approval_update_owner.php?update_id=<?php echo $rd['owner_id'];?>">Approve</a>           
                     
                     <?php 
                 }
-                      else{
+                      elseif($rd['approval_status'] == 1)
+                      {
                         ?>
                      <a class="btn btn-danger p-1" href="#">Approved</a>
                   <?php } ?> 
