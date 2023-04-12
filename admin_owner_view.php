@@ -61,6 +61,7 @@ $query = mysqli_query($conn,"SELECT * FROM owner_registration");
       <nav id="navbar" class="navbar order-last order-lg-0">
         <ul>
           <li><a class="nav-link scrollto active" href="index.php">Home</a></li>
+          <li> <a href="admin_dashboard.php" class="btn btn-warning mx-2 p-1">Go back</a></li>
          
        
              
@@ -107,7 +108,7 @@ $query = mysqli_query($conn,"SELECT * FROM owner_registration");
                 if($rd['approval_status'] == 0)
                 {  
                   ?>   
-                   <a class="btn btn-primary p-1" href="approval_update_owner.php?update_id=<?php echo $rd['owner_id'];?>">Approve</a>           
+                   <a class="btn btn-primary p-1" href="approval_update_owner.php?update_id2=<?php echo $rd['owner_id'];?>">Approve</a>           
                     
                     <?php 
                 }
@@ -124,7 +125,7 @@ $query = mysqli_query($conn,"SELECT * FROM owner_registration");
             <?php } ?>
            </table>
          
-        <a href="admin_dashboard.php">Go back</a>
+       
             </div>
         
      

@@ -61,6 +61,7 @@ $query = mysqli_query($conn,"SELECT * FROM customer_registration");
       <nav id="navbar" class="navbar order-last order-lg-0">
         <ul>
           <li><a class="nav-link scrollto active" href="index.php">Home</a></li>
+          <li><a href="admin_dashboard.php" class="btn btn-warning mx-2 p-1">Go back</a></li>
          
        
              
@@ -117,14 +118,11 @@ $query = mysqli_query($conn,"SELECT * FROM customer_registration");
                      <a class="btn btn-danger p-1" href="#">Approved</a>
                   <?php } ?> 
                   </td>
-                
-              
-                ?></td>
                 </tr>
             <?php } ?>
            </table>
          
-        <a href="admin_dashboard.php">Go back</a>
+        
             </div>
         
      

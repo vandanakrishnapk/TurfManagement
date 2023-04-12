@@ -6,7 +6,7 @@ if(isset($_POST['submit']))
 {
     $username  = $_POST['username'];
     $password = $_POST['password']; 
-    $type = $_POST['type'];
+   
 
 
 $result = mysqli_query($conn,$sql="SELECT * FROM login  WHERE username='$username'");
@@ -16,7 +16,7 @@ $row=mysqli_fetch_assoc($result);
 $hash = password_verify($password,$row['password']);
 
 $count=mysqli_num_rows($result);
-
+$type = $row['type'];
 if($count == 1 && $type == "admin" && $hash)
   {    
     $_SESSION['id']  = $row['login_id'];
@@ -78,6 +78,7 @@ if($count == 1 && $type == "admin" && $hash)
 
 
    ?>
+
 
 
 <!DOCTYPE html>

@@ -102,30 +102,30 @@ $sql = mysqli_query($conn,"SELECT * FROM turf_registration");
         {        
             ?>
          
-    <div class="card" style="width:75; height:50;">
+    <div class="card" style="width:195px; height:300px; font-size: small;">
     <div class="card-body">      
     <div class="form-group">
             <img src="./image/<?php echo $row['turf_image'];?>" alt="" width="150" height="150">
             </div>        
         <div class="form-group">
-            <strong>Name:</strong>
+        
              <?php echo $row['turf_name']; ?>
         </div>   
          <div class="form-group">
-            <strong>Place</strong>
+         
            <?php echo $row['turf_place']; ?>
         </div>   
 <div class="form-group">
-            <strong>Email</strong>
+     
          <?php echo $row['email']; ?>
         </div>
         <div class="form-group">
-            <strong>Cost</strong>
+         
          <?php echo $row['cost']; ?>
         </div>
         <div class="form-group">
-            <a class="btn btn-primary">Book now</a>
-            <a class="btn btn-primary mt-1" href="#">Back</a>
+        <a class="btn btn-primary" href="turf_booking.php?id=<?php echo $row['turf_id'];?>">Book now</a>
+                            
          
         </div>
 

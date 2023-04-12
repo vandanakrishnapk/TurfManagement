@@ -61,6 +61,7 @@ $query = mysqli_query($conn,"SELECT * FROM turf_registration");
       <nav id="navbar" class="navbar order-last order-lg-0">
         <ul>
           <li><a class="nav-link scrollto active" href="index.php">Home</a></li>
+          <li> <a href="admin_dashboard.php" class="btn btn-warning p-1 mx-2">Go back</a></li>
          
        
              
@@ -106,7 +107,7 @@ $query = mysqli_query($conn,"SELECT * FROM turf_registration");
             <?php } ?>
            </table>
          
-        <a href="admin_dashboard.php">Go back</a>
+       
             </div>
         
      

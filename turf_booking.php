@@ -1,63 +1,33 @@
-<?php
-session_start();
+<?php 
 include 'connection.php';
+session_start();
 if(!isset($_SESSION['id']))
-{    
-  header('location:login.php');
+{
+    header('location:login.php');
 }
-else
-{
-if(isset($_POST['submit']))
-{
-  $owner_id = $_SESSION['id'];
-  $turf_name = $_POST['turf_name'];
-  $turf_place = $_POST['turf_place'];
-  $email = $_POST['email'];
-  $cost = $_POST['cost'];
-  $filename = $_FILES["photo"]["name"];
-  $tempname = $_FILES["photo"]["tmp_name"];  
-  $folder = "./image/".$filename;
-  $image=$filename; 
-  $uploadOk = 1; 
-  $imageFileType =strtolower(pathinfo($folder,PATHINFO_EXTENSION));
-    
-    if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif" ) {
-        echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
-        $uploadOk = 0;
-    }
-    if($uploadOk == 0)
+else{
+    if(isset($_POST['submit']))
     {
-        echo "Sorry";
-    
+        $from_date = $_POST['from_date'];
+        $to_date = $_POST['to_date'];
+        $event_type = $_POST['event_type'];
+        $turfid = $_GET['id'];
+        var_dump($turfid);
+        $customerid = $_SESSION['id'];
+        $sql = mysqli_connect($conn,"INSERT INTO booking_table(turf_id,customer_id,from_date,to_date,event_type) VALUES('$turfid','$customerid','$from_date','$to_date','$event_type')");
+        if($sql)
+        {
+            echo "success";
+            mysqli_close($conn);
+            header("location:turf_booking.php");
+        }
     }
+    
     else{
-        move_uploaded_file($tempname,$folder);  
+        echo "something error";
     }
-
-  
-  
-
-  $sql= mysqli_query($conn,"INSERT INTO turf_registration(owner_id,turf_name,turf_place,email,turf_image,cost) VALUES('$owner_id','$turf_name','$turf_place','$email','$image','$cost')");
-  
-  
-  if($sql)
-  {
-    echo '<script>alert("Turf registered successfully");</script>';
     ?>
-    
-   <script>window.location.assign('view_turf.php');</script> 
-   <?php
-  
-  }
-  else
-  {
-    echo 'something went wrong';
-  }
-}
-  
-?>
-
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -115,7 +85,6 @@ if(isset($_POST['submit']))
       <nav id="navbar" class="navbar order-last order-lg-0">
         <ul>
           <li><a class="nav-link scrollto active" href="index.php">Home</a></li>
-          <li> <a href="owner_dashboard.php" class="btn btn-primary p-1 mx-2">Back</a></li>
          
        
              
@@ -137,18 +106,20 @@ if(isset($_POST['submit']))
         <h3 style="color:white;">Sign up here</h3>
         <div class="card" style="width:500px">
           <div class="card-header" style="background-color:bisque">
-          Turf Registration
+          Turf Booking
           </div>
           <div class="card-body">
-            <form action="turf_registration.php" method="POST" enctype="multipart/form-data">
+            <form action="turf_booking.php" method="POST">
           <div class="form-group">
-            <input type="text" class="form-control" placeholder="Turf_Name" name="turf_name">
-            <input type="text" class="form-control mt-2" placeholder="Turf_place" name="turf_place">
-            <input type="email" class="form-control mt-2" placeholder="Email ID" name="email">
-            <input type="file" class="form-control mt-2" name="photo">
-            <input type="number" class="form-control mt-2" placeholder="cost" name="cost">
+            <input type="date" class="form-control mt-2" name="from_date">
+            <input type="date" class="form-control mt-2" name="to_date">
+           <select name="event_type">
+            <option value="football">Football</option>
+            <option value="cricket">cricket</option>
+            <option value="volleyball">volleyball</option>
+           </select>          
             <input type="submit" class="btn btn-primary mt-2"  name="submit" value="submit">
-           
+            <a href="owner_dashboard.php" class="btn btn-primary">Back</a>
           </div>
             </form>
           </div>
@@ -232,3 +203,6 @@ if(isset($_POST['submit']))
 
 </html>
 <?php } ?>
+
+?>
+      

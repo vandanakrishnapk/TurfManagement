@@ -262,6 +262,8 @@ if(email == "")
 if(username == "")
 {
   document.getElementById("sp5").innerHTML="please enter username";
+
+  
    return false;
 }
 

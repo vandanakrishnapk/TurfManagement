@@ -81,7 +81,7 @@ $sql = mysqli_query($conn,"SELECT * FROM turf_registration");
         <ul>
 
         <li><a class="nav-link scrollto active" href="index.php">Home</a></li>   
-      
+        <li> <a class="btn btn-primary p-1 mx-3" href="owner_dashboard.php">Back</a></li>
         </ul>
         
       </nav><!-- .navbar -->
@@ -142,7 +142,7 @@ $sql = mysqli_query($conn,"SELECT * FROM turf_registration");
 
         <div class="form-group">
             <a class="btn btn-primary">edit</a>
-            <a class="btn btn-primary" href="owner_dashboard.php">Back</a>
+    
          
         </div>
 
@@ -152,7 +152,7 @@ $sql = mysqli_query($conn,"SELECT * FROM turf_registration");
     <?php   
         }
      ?>      
-
+ 
          
     </div>
        
