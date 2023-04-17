@@ -11,21 +11,17 @@ else{
         $from_date = $_POST['from_date'];
         $to_date = $_POST['to_date'];
         $event_type = $_POST['event_type'];
-        $turfid = $_GET['id'];
-        var_dump($turfid);
+        $turfid = $_GET['id'];   
+        $_SESSION['turfid'] = $turfid;     
         $customerid = $_SESSION['id'];
-        $sql = mysqli_connect($conn,"INSERT INTO booking_table(turf_id,customer_id,from_date,to_date,event_type) VALUES('$turfid','$customerid','$from_date','$to_date','$event_type')");
+        $sql = mysqli_query($conn,"INSERT INTO booking_table(turf_id,customer_id,from_date,to_date,event_type) VALUES('$turfid','$customerid','$from_date','$to_date','$event_type')");
         if($sql)
         {
-            echo "success";
+            echo "success";        
+            header("location:payment.php");
             mysqli_close($conn);
-            header("location:turf_booking.php");
         }
-    }
-    
-    else{
-        echo "something error";
-    }
+    }    
     ?>
     <!DOCTYPE html>
 <html lang="en">
@@ -109,7 +105,7 @@ else{
           Turf Booking
           </div>
           <div class="card-body">
-            <form action="turf_booking.php" method="POST">
+            <form action="" method="POST" required>
           <div class="form-group">
             <input type="date" class="form-control mt-2" name="from_date">
             <input type="date" class="form-control mt-2" name="to_date">
@@ -118,9 +114,9 @@ else{
             <option value="cricket">cricket</option>
             <option value="volleyball">volleyball</option>
            </select>          
-            <input type="submit" class="btn btn-primary mt-2"  name="submit" value="submit">
-            <a href="owner_dashboard.php" class="btn btn-primary">Back</a>
           </div>
+          <input type="submit" class="btn btn-primary mt-2" name="submit" value="submit">
+          <a href="owner_dashboard.php" class="btn btn-primary">Back</a>
             </form>
           </div>
         </div>

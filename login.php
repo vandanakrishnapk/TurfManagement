@@ -5,16 +5,12 @@ include 'connection.php';
 if(isset($_POST['submit']))
 {
     $username  = $_POST['username'];
-    $password = $_POST['password']; 
-   
-
-
+    $password = $_POST['password'];  
 $result = mysqli_query($conn,$sql="SELECT * FROM login  WHERE username='$username'");
 if($result)
 {
 $row=mysqli_fetch_assoc($result);
 $hash = password_verify($password,$row['password']);
-
 $count=mysqli_num_rows($result);
 $type = $row['type'];
 if($count == 1 && $type == "admin" && $hash)
@@ -74,10 +70,7 @@ if($count == 1 && $type == "admin" && $hash)
   }
   
 }
-
-
-
-   ?>
+?>
 
 
 

@@ -4,9 +4,9 @@ if(!isset($_SESSION['id']))
 {
   header('location:login.php');
 } 
-else
+else 
 {
-?>
+  ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -26,11 +26,13 @@ else
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css">
   <link href="assets/vendor/aos/aos.css" rel="stylesheet">
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
   <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
   <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+ 
   <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
   <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
@@ -44,39 +46,100 @@ else
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
-  <style>
+  <style type="text/css">
     #hero
     {
       background-image:url("https://media.istockphoto.com/id/520999573/photo/indoor-soccer-football-field.jpg?s=612x612&w=0&k=20&c=X2PinGm51YPcqCAFCqDh7GvJxoG2WnJ19aadfRYk2dI=");
     }
+    nav {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: row;
+  align-content: center;
+  align-items: center;
+  width: 100%;
+  background-color: #a33454;
+}
+
+nav div {
+  margin: 0.5rem;
+}
+
+nav div {
+  height: 60px;
+  width: 150px;
+}
+
+nav ul {
+  display: flex;
+  list-style: none;
+  justify-content: space-between;
+  margin: 0.5rem;
+  align-items: center;
+  align-content: center;
+}
+
+nav ul li {
+  font-size: 1.3rem;
+  padding: 0.5rem;
+  margin: 0.2rem 0.6rem;
+  position: relative;
+}
+
+nav ul li::after {
+  content: '';
+  display: none;
+  position: absolute;
+  color: #022222;
+  background-color: #022222;
+  height: 4px;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+}
+
+nav ul li:hover::after {
+  display: block;
+}
   </style>
 </head>
 
 <body>
-
-  <!-- ======= Header ======= -->
   <header id="header" class="fixed-top ">
-    <div class="container d-flex align-items-center justify-content-lg-between">
 
-      <h1 class="logo me-auto me-lg-0"><a href="index.html">Turf-Admin<span>.</span></a></h1>
-      <!-- Uncomment below if you prefer to use an image logo -->
-      <!-- <a href="index.html" class="logo me-auto me-lg-0"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid bg-dark">
+          <a class="navbar-brand" href="#">Turf/Admin</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
 
-      <nav id="navbar" class="navbar order-last order-lg-0">
-        <ul>
-          <li><a class="nav-link scrollto active" href="index.php">Home</a></li>
-          <li><a class="nav-link scrollto active" href="admin_customer_view.php">view customer</a></li>
-          <li><a class="nav-link scrollto active" href="admin_owner_view.php">view owner</a></li>
-          <li><a class="nav-link scrollto active" href="admin_turf_view.php">view turf</a></li>
-          <li><a class="nav-link scrollto active" href="#">change_password</a></li>
-          <li><a class="nav-link scrollto active" href="logout.php">logout</a></li>          
-        </ul>
-        
-      </nav><!-- .navbar -->
-
-  
-
-    </div>
+            <ul class="navbar-nav">
+              <li class="nav-item">
+              <a class="nav-link" href="index.php">Home</a>
+              </li>
+              <li class="nav-item">
+              <a class="nav-link" href="admin_customer_view.php">view customer</a>
+              </li>
+              <li class="nav-item">
+              <a class="nav-link" href="admin_owner_view.php">view owner</a>
+              </li>
+              <li class="nav-item">
+              <a class="nav-link" href="admin_turf_view.php">view turf</a>
+              </li>
+              <li class="nav-item">
+              <a class="nav-link" href="#">change_password</a>
+              </li>
+              <li class="nav-item">
+              <a class="nav-link" href="logout.php">logout</a>
+              </li>
+              
+            </ul>
+          </div>
+        </div>
+      </nav>
+     
   </header><!-- End Header -->
 
   <!-- ======= Hero Section ======= -->
@@ -84,8 +147,7 @@ else
     <div class="container mt-1" data-aos="fade-up">
 
       <div class="row justify-content-center" data-aos="fade-up" data-aos-delay="150">   
-
-     
+   
     </div>
   </section><!-- End Hero -->
 
@@ -97,7 +159,7 @@ else
 
         <div class="row">
           <div class="col-lg-6 order-1 order-lg-2" data-aos="fade-left" data-aos-delay="100">
-           
+     
           </div>
        
 
@@ -155,6 +217,7 @@ else
   <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
   <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
   <script src="assets/vendor/php-email-form/validate.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
@@ -162,6 +225,4 @@ else
 </body>
 
 </html>
-<?php 
-}
-?>
+<?php  } ?>

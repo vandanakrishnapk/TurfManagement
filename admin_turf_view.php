@@ -1,6 +1,7 @@
 <?php
 include "connection.php";
-$query = mysqli_query($conn,"SELECT * FROM turf_registration");
+
+$query = mysqli_query($conn,"SELECT * FROM turf_registration INNER JOIN owner_registration ON turf_registration.owner_id = owner_registration.owner_id");
 
 ?>
 <!DOCTYPE html>
@@ -86,6 +87,7 @@ $query = mysqli_query($conn,"SELECT * FROM turf_registration");
            <table class = "table table-bordered" style="color:white">
             <tr>
                 <th>Regno</th>
+                <th>Owner</th>
                 <th>Turf_Name</th>             
                 <th>Turf_Place</th>
                 <th>Email</th>
@@ -98,6 +100,7 @@ $query = mysqli_query($conn,"SELECT * FROM turf_registration");
             ?>
                 <tr>
                 <td><?php echo $rd['turf_id']; ?></td>
+                <td><?php echo $rd['name']; ?></td>
                 <td><?php echo $rd['turf_name']; ?></td>
                 <td><?php echo $rd['turf_place']; ?></td>
                 <td><?php echo$rd['email']; ?></td>
