@@ -64,56 +64,7 @@ $sql = mysqli_query($conn,"SELECT * FROM turf_registration");
     display: inline-block;
     margin-left:5px;
     }
-    nav {
-  display: flex;
-  justify-content: space-around;
-  flex-direction: row;
-  align-content: center;
-  align-items: center;
-  width: 100%;
-  background-color: #a33454;
-}
 
-nav div {
-  margin: 0.5rem;
-}
-
-nav div {
-  height: 60px;
-  width: 150px;
-}
-
-nav ul {
-  display: flex;
-  list-style: none;
-  justify-content: space-between;
-  margin: 0.5rem;
-  align-items: center;
-  align-content: center;
-}
-
-nav ul li {
-  font-size: 1.3rem;
-  padding: 0.5rem;
-  margin: 0.2rem 0.6rem;
-  position: relative;
-}
-
-nav ul li::after {
-  content: '';
-  display: none;
-  position: absolute;
-  color: #022222;
-  background-color: #022222;
-  height: 4px;
-  width: 100%;
-  bottom: 0;
-  left: 0;
-}
-
-nav ul li:hover::after {
-  display: block;
-}
   </style>
 </head>
 

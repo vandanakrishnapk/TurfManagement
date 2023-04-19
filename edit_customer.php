@@ -1,15 +1,16 @@
 <?php
-include 'connection.php';
 session_start();
+include 'connection.php';
 if(!isset($_SESSION['id']))
 {
     header('location:login.php');
 }
 else
 {
-$id = $_SESSION['id'];
-$sql = mysqli_query($conn,"SELECT booking_table.booking_id,turf_registration.cost FROM booking_table INNER JOIN turf_registration WHERE booking_table.turf_id = turf_registration.turf_id AND booking_table.customer_id= '$id'");
-$data = mysqli_fetch_assoc($sql);
+
+    $id = $_SESSION['id'];
+    $sql= mysqli_query($conn,"SELECT * FROM customer_registration WHERE customer_id = '$id'");
+    $data = mysqli_fetch_assoc($sql);
 ?>
     <!DOCTYPE html>
     <html lang="en">
@@ -22,7 +23,7 @@ $data = mysqli_fetch_assoc($sql);
       <meta content="" name="description">
       <meta content="" name="keywords">
     
-      <!-- Favicons -->
+      <!-- Favicons
       <link href="https://media.istockphoto.com/id/520999573/photo/indoor-soccer-football-field.jpg?s=612x612&w=0&k=20&c=X2PinGm51YPcqCAFCqDh7GvJxoG2WnJ19aadfRYk2dI=" rel="icon">
       <link href="https://media.istockphoto.com/id/520999573/photo/indoor-soccer-football-field.jpg?s=612x612&w=0&k=20&c=X2PinGm51YPcqCAFCqDh7GvJxoG2WnJ19aadfRYk2dI=" rel="apple-touch-icon">
     
@@ -36,7 +37,7 @@ $data = mysqli_fetch_assoc($sql);
       <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
       <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
       <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-      <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+      <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet"> 
     
       <!-- Template Main CSS File -->
       <link href="assets/css/style.css" rel="stylesheet">
@@ -49,6 +50,12 @@ $data = mysqli_fetch_assoc($sql);
       * License: https://bootstrapmade.com/license/
       ======================================================== -->
       <style>
+        .card
+        {
+            width:25%;
+        }
+      </style>
+        <style>
         #hero
         {
           background-image:url("https://media.istockphoto.com/id/520999573/photo/indoor-soccer-football-field.jpg?s=612x612&w=0&k=20&c=X2PinGm51YPcqCAFCqDh7GvJxoG2WnJ19aadfRYk2dI=");
@@ -68,46 +75,74 @@ $data = mysqli_fetch_assoc($sql);
     
           <nav id="navbar" class="navbar order-last order-lg-0">
             <ul>
-              <li><a class="nav-link scrollto active" href="index.php">Home</a></li>
-             
-           
-                 
-        
-            </ul>
+            <li>   <a class="btn btn-primary p-1 mx-2" href="index.php">Home</a></li> 
+            <li>   <a class="btn btn-primary p-1 mx-2" href="owner_dashboard.php">Back</a></li>      
+      </ul>
+    
             
           </nav><!-- .navbar -->
     
       
     
         </div>
+     
+    
       </header><!-- End Header -->
     
       <!-- ======= Hero Section ======= -->
       <section id="hero" class="d-flex align-items-center justify-content-center">
         <div class="container mt-1" data-aos="fade-up">
     
-          <div class="row justify-content-center" data-aos="fade-up" data-aos-delay="150">   
-            
-            <div class="card" style="width:500px">
-              <div class="card-header" style="background-color:bisque">
-              Pay now!
-              </div>
-              <div class="card-body" style="color:black">
-               <form method="POST" required>
-               <div class="form-group">
-               <label>pay amount </label>
-                <input type="number" class = "form-control" name="amount" value="<?php echo $data['cost'];?>"><br>
-                <label> payment mode : </label>
-                <input type="radio" name="payment_status" value="paid" required>paid
-                <input type="radio" name="payment_status" value="unpaid" required>unpaid<br>      
+          <div class="row justify-content-center" data-aos="fade-up" data-aos-delay="75">   
+        <div class="col-md-12">
+    
+    
+             
+        <div class="card">
+        <div class="card-body">
+    
+          
+                <div class="form-group mt-4">
+                <img src="./image/<?php echo $data['photo'];?>" alt="" width="150" height="150">
                 </div>
-                <input type="submit" class="btn btn-primary mt-2" name="submit" value="submit">
-                <a href="customer_dashboard.php" class="btn btn-primary">Back</a>
-                </form>
-                </div>
-              </div>
+              
+     
             
-         
+            <div class="form-group mt-4">
+                <strong>Name:</strong>
+                 <input type="text" name = "name" value="<?php echo $data['name']; ?>">
+            </div>
+           
+    
+           
+            <div class="form-group mt-4">
+                <strong>mobile</strong>
+               <input type="number" name= "mobile" value="<?php echo $data['mobile']; ?>">
+            </div>
+           
+    
+          
+            <div class="form-group mt-4">
+                <strong>Place</strong>
+             <input type="text" name = "place" value="<?php echo $data['place']; ?>">
+            </div>
+      
+    
+      
+            <div class="form-group mt-4">
+                <strong>Email</strong>
+             <input type="email" name = "email" value = "<?php echo $data['email']; ?>">
+            </div>
+            <div class="form-group mt-4">
+                <a class="btn btn-primary" href="">update</a>
+             
+             
+            </div>
+    
+        </div>
+    </div> 
+</div>
+</div>  
         </div>
       </section><!-- End Hero -->
     
@@ -185,19 +220,5 @@ $data = mysqli_fetch_assoc($sql);
     
     </html>
     <?php } ?>
-    <?php
-  if(isset($_POST['submit']))
-  {
-    $bookingid = $data['booking_id'];
-    $cost = $_POST['amount'];
-    $payment_status = $_POST['payment_status'];
-    $query = mysqli_query($conn,"INSERT INTO `payment`(`customer_id`, `booking_id`, `amount`, `payment_status`) VALUES ('$id','$bookingid','$cost','$payment_status')");
-    if($query)
-    {
-      echo '<script>alert("payment completed successfully");</script>';
-    }
-  }
-    ?>
     
-    
-          
+

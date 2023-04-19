@@ -11,17 +11,24 @@ else{
         $from_date = $_POST['from_date'];
         $to_date = $_POST['to_date'];
         $event_type = $_POST['event_type'];
-        $turfid = $_GET['id'];   
-        $_SESSION['turfid'] = $turfid;     
+        $turfid = $_GET['id'];     
         $customerid = $_SESSION['id'];
+        $sql = "SELECT * FROM booking_table WHERE from_date <= '$to_date' AND to_date >= '$from_date'";
+        $result = $conn->query($sql);
+        if ($result->num_rows > 0) {
+            echo'<script>alert("booking not available between $from_date and $to_date");</script>';
+        } else {         
         $sql = mysqli_query($conn,"INSERT INTO booking_table(turf_id,customer_id,from_date,to_date,event_type) VALUES('$turfid','$customerid','$from_date','$to_date','$event_type')");
+        $_SESSION['bookingid'] = $_GET['booking_id'];
+        var_dump($_SESSION['bookingid']);
         if($sql)
         {
             echo "success";        
             header("location:payment.php");
             mysqli_close($conn);
         }
-    }    
+    }   
+  } 
     ?>
     <!DOCTYPE html>
 <html lang="en">
@@ -109,7 +116,8 @@ else{
           <div class="form-group">
             <input type="date" class="form-control mt-2" name="from_date">
             <input type="date" class="form-control mt-2" name="to_date">
-           <select name="event_type">
+           <select name="event_type" class="form-control mt-2">
+           <option>Select event</option>
             <option value="football">Football</option>
             <option value="cricket">cricket</option>
             <option value="volleyball">volleyball</option>

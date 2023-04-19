@@ -76,7 +76,8 @@ $sql = mysqli_query($conn,"SELECT * FROM owner_registration WHERE owner_id = '$i
         <ul>
         <li>   <a class="btn btn-primary p-1 mx-2" href="index.php">Home</a></li> 
         <li>   <a class="btn btn-primary p-1 mx-2" href="owner_dashboard.php">Back</a></li>      
-        </ul>
+  </ul>
+
         
       </nav><!-- .navbar -->
 

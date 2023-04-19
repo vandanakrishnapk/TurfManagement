@@ -222,7 +222,10 @@ h6 {
 
 .navbar a:hover,
 .navbar .active,
-
+.navbar .active:focus,
+.navbar li:hover>a {
+  color: #ffc451;
+}
 
 .navbar .dropdown ul {
   display: block;

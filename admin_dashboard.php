@@ -14,25 +14,23 @@ else
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Turf Booking Management/admin</title>
+  <title>Gp Bootstrap Template - Index</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link href="https://media.istockphoto.com/id/520999573/photo/indoor-soccer-football-field.jpg?s=612x612&w=0&k=20&c=X2PinGm51YPcqCAFCqDh7GvJxoG2WnJ19aadfRYk2dI=" rel="icon">
-  <link href="https://media.istockphoto.com/id/520999573/photo/indoor-soccer-football-field.jpg?s=612x612&w=0&k=20&c=X2PinGm51YPcqCAFCqDh7GvJxoG2WnJ19aadfRYk2dI=" rel="apple-touch-icon">
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css">
   <link href="assets/vendor/aos/aos.css" rel="stylesheet">
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
   <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
   <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
- 
   <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
   <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
@@ -47,61 +45,12 @@ else
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
   <style type="text/css">
-    #hero
+
+#hero
     {
       background-image:url("https://media.istockphoto.com/id/520999573/photo/indoor-soccer-football-field.jpg?s=612x612&w=0&k=20&c=X2PinGm51YPcqCAFCqDh7GvJxoG2WnJ19aadfRYk2dI=");
     }
-    nav {
-  display: flex;
-  justify-content: space-around;
-  flex-direction: row;
-  align-content: center;
-  align-items: center;
-  width: 100%;
-  background-color: #a33454;
-}
-
-nav div {
-  margin: 0.5rem;
-}
-
-nav div {
-  height: 60px;
-  width: 150px;
-}
-
-nav ul {
-  display: flex;
-  list-style: none;
-  justify-content: space-between;
-  margin: 0.5rem;
-  align-items: center;
-  align-content: center;
-}
-
-nav ul li {
-  font-size: 1.3rem;
-  padding: 0.5rem;
-  margin: 0.2rem 0.6rem;
-  position: relative;
-}
-
-nav ul li::after {
-  content: '';
-  display: none;
-  position: absolute;
-  color: #022222;
-  background-color: #022222;
-  height: 4px;
-  width: 100%;
-  bottom: 0;
-  left: 0;
-}
-
-nav ul li:hover::after {
-  display: block;
-}
-  </style>
+</style>
 </head>
 
 <body>
@@ -117,22 +66,22 @@ nav ul li:hover::after {
 
             <ul class="navbar-nav">
               <li class="nav-item">
-              <a class="nav-link" href="index.php">Home</a>
+              <a class="nav-link scrollto" href="index.php">Home</a>
               </li>
               <li class="nav-item">
-              <a class="nav-link" href="admin_customer_view.php">view customer</a>
+              <a class="nav-link scrollto" href="admin_customer_view.php">view customer</a>
               </li>
               <li class="nav-item">
-              <a class="nav-link" href="admin_owner_view.php">view owner</a>
+              <a class="nav-link scrollto" href="admin_owner_view.php">view owner</a>
               </li>
               <li class="nav-item">
-              <a class="nav-link" href="admin_turf_view.php">view turf</a>
+              <a class="nav-link scrollto" href="admin_turf_view.php">view turf</a>
               </li>
               <li class="nav-item">
-              <a class="nav-link" href="#">change_password</a>
+              <a class="nav-link scrollto" href="#">change_password</a>
               </li>
               <li class="nav-item">
-              <a class="nav-link" href="logout.php">logout</a>
+              <a class="nav-link scrollto" href="logout.php">logout</a>
               </li>
               
             </ul>
@@ -217,11 +166,9 @@ nav ul li:hover::after {
   <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
   <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
   <script src="assets/vendor/php-email-form/validate.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
-
 </body>
 
 </html>

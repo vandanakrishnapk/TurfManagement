@@ -106,8 +106,7 @@ $sql = mysqli_query($conn,"SELECT * FROM customer_registration WHERE customer_id
       
             <div class="form-group mt-4">
             <img src="./image/<?php echo $row['photo'];?>" alt="" width="150" height="150">
-            </div>
-          
+            </div>       
  
         
         <div class="form-group mt-4">
@@ -136,7 +135,7 @@ $sql = mysqli_query($conn,"SELECT * FROM customer_registration WHERE customer_id
          <?php echo $row['email']; ?>
         </div>
         <div class="form-group mt-4">
-            <a class="btn btn-primary">edit</a>
+            <a class="btn btn-primary" href="edit_customer.php">edit</a>
             <a class="btn btn-primary" href="customer_dashboard.php">Back</a>
          
         </div>
