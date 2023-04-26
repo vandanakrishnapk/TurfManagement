@@ -7,10 +7,43 @@ if(!isset($_SESSION['id']))
 }
 else
 {
-
     $id = $_SESSION['id'];
     $sql= mysqli_query($conn,"SELECT * FROM customer_registration WHERE customer_id = '$id'");
     $data = mysqli_fetch_assoc($sql);
+if(isset($_POST['submit']))
+{
+    $name = $_POST['name'];
+    $mobile = $_POST['mobile'];
+    $place = $_POST['place'];
+    $email = $_POST['email'];
+    $filename = $_FILES["photo"]["name"];
+    $tempname = $_FILES["photo"]["tmp_name"];  
+    $folder = "./image/".$filename;
+    $image=$filename; 
+    $uploadOk = 1; 
+    $imageFileType =strtolower(pathinfo($folder,PATHINFO_EXTENSION));
+    
+    if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif" ) {
+        echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+        $uploadOk = 0;
+    }
+    if($uploadOk == 0)
+    {
+        echo "Sorry";
+    
+    }
+    else{
+        move_uploaded_file($tempname,$folder);  
+    }
+
+ 
+   $sql= mysqli_query($conn,"UPDATE `customer_registration` SET `name`='$name',`mobile`='$mobile',`place`='$place',`email`='$email',`photo`='$image' WHERE `customer_id`='$id'");
+  if($sql)
+  {
+    
+   header('location:edit_customer.php');
+    echo '<script>alert("profile updated successfully");</script>';
+}}
 ?>
     <!DOCTYPE html>
     <html lang="en">
@@ -101,7 +134,7 @@ else
         <div class="card">
         <div class="card-body">
     
-          
+<form method="POST" enctype="multipart/form-data">          
                 <div class="form-group mt-4">
                 <img src="./image/<?php echo $data['photo'];?>" alt="" width="150" height="150">
                 </div>
@@ -133,12 +166,17 @@ else
                 <strong>Email</strong>
              <input type="email" name = "email" value = "<?php echo $data['email']; ?>">
             </div>
+            
             <div class="form-group mt-4">
-                <a class="btn btn-primary" href="">update</a>
-             
-             
+             <input type="file" name="photo">
             </div>
-    
+
+            
+                <input type="submit" name="submit" class="btn btn-primary" value="update">
+             
+             
+      
+      </form>
         </div>
     </div> 
 </div>

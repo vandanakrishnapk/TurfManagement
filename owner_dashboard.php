@@ -49,56 +49,7 @@ else
     {
       background-image:url("https://media.istockphoto.com/id/520999573/photo/indoor-soccer-football-field.jpg?s=612x612&w=0&k=20&c=X2PinGm51YPcqCAFCqDh7GvJxoG2WnJ19aadfRYk2dI=");
     }
-    nav {
-  display: flex;
-  justify-content: space-around;
-  flex-direction: row;
-  align-content: center;
-  align-items: center;
-  width: 100%;
-  background-color: #a33454;
-}
-
-nav div {
-  margin: 0.5rem;
-}
-
-nav div {
-  height: 60px;
-  width: 150px;
-}
-
-nav ul {
-  display: flex;
-  list-style: none;
-  justify-content: space-between;
-  margin: 0.5rem;
-  align-items: center;
-  align-content: center;
-}
-
-nav ul li {
-  font-size: 1.3rem;
-  padding: 0.5rem;
-  margin: 0.2rem 0.6rem;
-  position: relative;
-}
-
-nav ul li::after {
-  content: '';
-  display: none;
-  position: absolute;
-  color: #022222;
-  background-color: #022222;
-  height: 4px;
-  width: 100%;
-  bottom: 0;
-  left: 0;
-}
-
-nav ul li:hover::after {
-  display: block;
-}
+   
   </style>
 </head>
 
@@ -124,6 +75,9 @@ nav ul li:hover::after {
               </li>
               <li class="nav-item">
               <a class="nav-link" href="view_turf.php">view_turf</a>
+              </li>
+              <li class="nav-item">
+              <a class="nav-link" href="view_booking_owner.php">view_bookings</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="logout.php">logout</a>

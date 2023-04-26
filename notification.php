@@ -1,13 +1,19 @@
-<?php
+<?php 
+include 'connection.php';
 session_start();
 if(!isset($_SESSION['id']))
 {
-  header('location:login.php');
-} 
-else 
+    header('location:login.php');
+}
+else
 {
- var_dump($_SESSION['id']);
-  ?>
+if(isset($_POST['submit']))
+    {
+ 
+  } 
+    ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,13 +21,13 @@ else
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Gp Bootstrap Template - Index</title>
+  <title>Turf Booking Management</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link href="assets/img/favicon.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <link href="https://media.istockphoto.com/id/520999573/photo/indoor-soccer-football-field.jpg?s=612x612&w=0&k=20&c=X2PinGm51YPcqCAFCqDh7GvJxoG2WnJ19aadfRYk2dI=" rel="icon">
+  <link href="https://media.istockphoto.com/id/520999573/photo/indoor-soccer-football-field.jpg?s=612x612&w=0&k=20&c=X2PinGm51YPcqCAFCqDh7GvJxoG2WnJ19aadfRYk2dI=" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
@@ -45,51 +51,39 @@ else
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
-  <style type="text/css">
-
-#hero
+  <style>
+    #hero
     {
       background-image:url("https://media.istockphoto.com/id/520999573/photo/indoor-soccer-football-field.jpg?s=612x612&w=0&k=20&c=X2PinGm51YPcqCAFCqDh7GvJxoG2WnJ19aadfRYk2dI=");
     }
-</style>
+  </style>
 </head>
 
 <body>
+
+  <!-- ======= Header ======= -->
   <header id="header" class="fixed-top ">
+    <div class="container d-flex align-items-center justify-content-lg-between">
 
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid bg-dark">
-          <a class="navbar-brand" href="#">Turf/Admin</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNav">
+      <h1 class="logo me-auto me-lg-0"><a href="index.html">Turf<span>.</span></a></h1>
+      <!-- Uncomment below if you prefer to use an image logo -->
+      <!-- <a href="index.html" class="logo me-auto me-lg-0"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
 
-            <ul class="navbar-nav">
-              <li class="nav-item">
-              <a class="nav-link scrollto" href="index.php">Home</a>
-              </li>
-              <li class="nav-item">
-              <a class="nav-link scrollto" href="admin_customer_view.php">view customer</a>
-              </li>
-              <li class="nav-item">
-              <a class="nav-link scrollto" href="admin_owner_view.php">view owner</a>
-              </li>
-              <li class="nav-item">
-              <a class="nav-link scrollto" href="admin_turf_view.php">view turf</a>
-              </li>
-              <li class="nav-item">
-              <a class="nav-link scrollto" href="#">change_password</a>
-              </li>
-              <li class="nav-item">
-              <a class="nav-link scrollto" href="logout.php">logout</a>
-              </li>
-              
-            </ul>
-          </div>
-        </div>
-      </nav>
-     
+      <nav id="navbar" class="navbar order-last order-lg-0">
+        <ul>
+          <li><a class="nav-link scrollto active" href="index.php">Home</a></li>
+          <li> <a href="owner_dashboard.php" class="btn btn-primary p-1 mx-2">Back</a></li>
+         
+       
+             
+    
+        </ul>
+        
+      </nav><!-- .navbar -->
+
+  
+
+    </div>
   </header><!-- End Header -->
 
   <!-- ======= Hero Section ======= -->
@@ -97,7 +91,32 @@ else
     <div class="container mt-1" data-aos="fade-up">
 
       <div class="row justify-content-center" data-aos="fade-up" data-aos-delay="150">   
-   
+        <h3 style="color:white;">Sign up here</h3>
+        <div class="card" style="width:500px">
+          <div class="card-header" style="background-color:bisque">
+          Turf Registration
+          </div>
+          <div class="card-body">
+            <form action="" method="POST">
+          <div class="form-group">
+            <select name="customer_id">
+                <?php
+               echo" foreach($row as $rows)  {"
+               
+           ?> 
+                    <option value="<?php $rows['customer_id'];?>"><?php $rows['customer_id']; $rows['name']; ?></option>
+                <?php
+               echo "}"
+                ?>
+            </select>
+            <input type="text" class="form-control" placeholder="Type a message here" name="notification">
+            <input type="submit" class="btn btn-primary mt-2"  name="submit" value="submit">
+           </div>
+            </form>
+          </div>
+        </div>
+        
+     
     </div>
   </section><!-- End Hero -->
 
@@ -109,7 +128,7 @@ else
 
         <div class="row">
           <div class="col-lg-6 order-1 order-lg-2" data-aos="fade-left" data-aos-delay="100">
-     
+           
           </div>
        
 
@@ -170,7 +189,8 @@ else
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+
 </body>
 
 </html>
-<?php  } ?>
+<?php } ?>

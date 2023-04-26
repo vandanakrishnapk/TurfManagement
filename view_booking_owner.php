@@ -1,13 +1,21 @@
 <?php
 session_start();
+include "connection.php";
 if(!isset($_SESSION['id']))
 {
-  header('location:login.php');
+    header('location:login.php');
 } 
-else 
-{
- var_dump($_SESSION['id']);
-  ?>
+else
+{    
+$sql = mysqli_query($conn,"SELECT customer_registration.name,turf_registration.turf_name,booking_table.booking_id,
+customer_registration.mobile,payment.amount,payment.payment_status 
+FROM booking_table
+INNER JOIN customer_registration ON booking_table.customer_id = customer_registration.customer_id
+INNER JOIN turf_registration ON booking_table.turf_id = turf_registration.turf_id
+INNER JOIN payment ON booking_table.payment_id = payment.payment_id");
+//$row = mysqli_fetch_assoc($sql);
+//echo var_dump($row);
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,13 +23,13 @@ else
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Gp Bootstrap Template - Index</title>
+  <title>Turf Booking Management</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
-  <!-- Favicons -->
-  <link href="assets/img/favicon.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <!-- Favicons
+  <link href="https://media.istockphoto.com/id/520999573/photo/indoor-soccer-football-field.jpg?s=612x612&w=0&k=20&c=X2PinGm51YPcqCAFCqDh7GvJxoG2WnJ19aadfRYk2dI=" rel="icon">
+  <link href="https://media.istockphoto.com/id/520999573/photo/indoor-soccer-football-field.jpg?s=612x612&w=0&k=20&c=X2PinGm51YPcqCAFCqDh7GvJxoG2WnJ19aadfRYk2dI=" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
@@ -33,7 +41,7 @@ else
   <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
   <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
   <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet"> 
 
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
@@ -45,59 +53,80 @@ else
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
-  <style type="text/css">
-
-#hero
+  <style>
+    .card
+    {
+    width:15%;
+    display: flex;
+    justify-content: space-between;
+    display: inline-block;
+    margin-left:5px;
+    }
+  </style>
+    <style>
+    #hero
     {
       background-image:url("https://media.istockphoto.com/id/520999573/photo/indoor-soccer-football-field.jpg?s=612x612&w=0&k=20&c=X2PinGm51YPcqCAFCqDh7GvJxoG2WnJ19aadfRYk2dI=");
     }
-</style>
+  </style>
 </head>
 
 <body>
+
+  <!-- ======= Header ======= -->
   <header id="header" class="fixed-top ">
+    <div class="container d-flex align-items-center justify-content-lg-between">
 
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid bg-dark">
-          <a class="navbar-brand" href="#">Turf/Admin</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNav">
+      <h1 class="logo me-auto me-lg-0"><a href="index.html">Turf<span>.</span></a></h1>
+      <!-- Uncomment below if you prefer to use an image logo -->
+      <!-- <a href="index.html" class="logo me-auto me-lg-0"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
 
-            <ul class="navbar-nav">
-              <li class="nav-item">
-              <a class="nav-link scrollto" href="index.php">Home</a>
-              </li>
-              <li class="nav-item">
-              <a class="nav-link scrollto" href="admin_customer_view.php">view customer</a>
-              </li>
-              <li class="nav-item">
-              <a class="nav-link scrollto" href="admin_owner_view.php">view owner</a>
-              </li>
-              <li class="nav-item">
-              <a class="nav-link scrollto" href="admin_turf_view.php">view turf</a>
-              </li>
-              <li class="nav-item">
-              <a class="nav-link scrollto" href="#">change_password</a>
-              </li>
-              <li class="nav-item">
-              <a class="nav-link scrollto" href="logout.php">logout</a>
-              </li>
-              
-            </ul>
-          </div>
-        </div>
-      </nav>
-     
+      <nav id="navbar" class="navbar order-last order-lg-0">
+        <ul>
+
+        <li><a class="nav-link scrollto active" href="index.php">Home</a></li>   
+        <li> <a class="btn btn-primary p-1 mx-3" href="owner_dashboard.php">Back</a></li>
+        </ul>
+        
+      </nav><!-- .navbar -->
+
+  
+
+    </div>
+ 
+
   </header><!-- End Header -->
 
   <!-- ======= Hero Section ======= -->
   <section id="hero" class="d-flex align-items-center justify-content-center">
-    <div class="container mt-1" data-aos="fade-up">
-
-      <div class="row justify-content-center" data-aos="fade-up" data-aos-delay="150">   
-   
+  <div class="container mt-1" data-aos="fade-up">
+      <div class="row justify-content-center" data-aos="fade-up" data-aos-delay="75">   
+    
+         <table class="table table-bordered" style="color:yellow">
+            <tr>
+                <th>booking id</th>
+                <th>Turfname</th>
+                <th>customer name</th>
+                <th>mobileno</th>
+                <th>amount</th>
+                <th>payment status</th>
+            </tr>
+            <?php
+            while($row = mysqli_fetch_assoc($sql))
+            {
+                ?>
+            <tr>
+                <td><?php echo $row['booking_id'];?></td>
+                <td><?php echo $row['turf_name'];?></td>
+                <td><?php echo $row['name'];?></td>
+                <td><?php echo $row['mobile'];?></td>
+                <td><?php echo $row['amount'];?></td>
+                <td><?php echo $row['payment_status']; ?></td>
+            
+            </tr>
+            <?php } ?>
+         </table>
+    </div>  
     </div>
   </section><!-- End Hero -->
 
@@ -109,7 +138,7 @@ else
 
         <div class="row">
           <div class="col-lg-6 order-1 order-lg-2" data-aos="fade-left" data-aos-delay="100">
-     
+           
           </div>
        
 
@@ -170,7 +199,8 @@ else
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+
 </body>
 
 </html>
-<?php  } ?>
+<?php } ?>

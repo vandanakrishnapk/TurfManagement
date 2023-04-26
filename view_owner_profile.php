@@ -136,7 +136,7 @@ $sql = mysqli_query($conn,"SELECT * FROM owner_registration WHERE owner_id = '$i
          <?php echo $row['email']; ?>
         </div>
         <div class="form-group mt-4">
-            <a class="btn btn-primary">edit</a>
+            <a class="btn btn-primary" href=">edit</a>
          
          
         </div>

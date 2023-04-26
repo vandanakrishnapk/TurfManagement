@@ -132,7 +132,7 @@ if(isset($_POST['submit']))
           Customer Registration
           </div>
           <div class="card-body">
-            <form  name="myform" method="POST" enctype="multipart/form-data" required>
+            <form  method="POST" enctype="multipart/form-data" required>
             <div class="form-group">
             <input type="text" class="form-control" placeholder="Name" name="name" id="name" onkeyup="clearmsg('sp1')"><span style="color: red;" id="sp1"></span>
             <input type="number" class="form-control mt-2" placeholder="Mobile_number" name="mobile" id="mobile" onkeyup="clearmsg('sp2')"><span style="color: red;" id="sp2"></span>

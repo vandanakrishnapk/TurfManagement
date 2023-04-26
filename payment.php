@@ -7,8 +7,7 @@ if(!isset($_SESSION['id']))
 }
 else
 {
-$id = $_SESSION['id'];
-$sql = mysqli_query($conn,"SELECT booking_table.booking_id,turf_registration.cost FROM booking_table INNER JOIN turf_registration WHERE booking_table.turf_id = turf_registration.turf_id AND booking_table.customer_id= '$id'");
+$sql = mysqli_query($conn,"SELECT turf_registration.cost FROM booking_table INNER JOIN turf_registration WHERE booking_table.turf_id = turf_registration.turf_id");
 $data = mysqli_fetch_assoc($sql);
 ?>
     <!DOCTYPE html>
@@ -105,8 +104,7 @@ $data = mysqli_fetch_assoc($sql);
                 <a href="customer_dashboard.php" class="btn btn-primary">Back</a>
                 </form>
                 </div>
-              </div>
-            
+              </div>          
          
         </div>
       </section><!-- End Hero -->
@@ -183,21 +181,25 @@ $data = mysqli_fetch_assoc($sql);
     
     </body>
     
-    </html>
-    <?php } ?>
+    </html> 
     <?php
   if(isset($_POST['submit']))
   {
-    $bookingid = $data['booking_id'];
+    $id = $_SESSION['id'];
+    $datas = $_SESSION['bookingid'];
     $cost = $_POST['amount'];
     $payment_status = $_POST['payment_status'];
-    $query = mysqli_query($conn,"INSERT INTO `payment`(`customer_id`, `booking_id`, `amount`, `payment_status`) VALUES ('$id','$bookingid','$cost','$payment_status')");
-    if($query)
+    mysqli_query($conn,"INSERT INTO `payment`(`customer_id`, `booking_id`, `amount`, `payment_status`) VALUES ('$id','$datas','$cost','$payment_status')");
+      $lastid = mysqli_insert_id($conn);
+      $id = $_SESSION['id'];
+    $query1=mysqli_query($conn,"UPDATE booking_table SET payment_id='$lastid' WHERE customer_id='$id' && booking_id='$datas'");
+     if($query1)
     {
-      echo '<script>alert("payment completed successfully");</script>';
+      echo '<script>alert("booking completed successfully");</script>';
     }
-  }
+}
     ?>
+       <?php } ?>
     
     
           

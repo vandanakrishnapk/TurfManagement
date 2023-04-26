@@ -13,14 +13,14 @@ else{
         $event_type = $_POST['event_type'];
         $turfid = $_GET['id'];     
         $customerid = $_SESSION['id'];
-        $sql = "SELECT * FROM booking_table WHERE from_date <= '$to_date' AND to_date >= '$from_date'";
+        $sql = "SELECT * FROM booking_table WHERE from_date <= '$to_date' AND to_date >= '$from_date' AND turf_id = $turfid";
         $result = $conn->query($sql);
         if ($result->num_rows > 0) {
             echo'<script>alert("booking not available between $from_date and $to_date");</script>';
         } else {         
         $sql = mysqli_query($conn,"INSERT INTO booking_table(turf_id,customer_id,from_date,to_date,event_type) VALUES('$turfid','$customerid','$from_date','$to_date','$event_type')");
-        $_SESSION['bookingid'] = $_GET['booking_id'];
-        var_dump($_SESSION['bookingid']);
+        $_SESSION['bookingid'] = mysqli_insert_id($conn);
+
         if($sql)
         {
             echo "success";        
